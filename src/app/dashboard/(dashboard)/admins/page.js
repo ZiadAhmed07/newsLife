@@ -1,0 +1,119 @@
+'use client'
+
+import Loader from "@/components/loader/loader"
+import { apiData } from "@/data/url"
+import axios from "axios"
+import { getCookie } from "cookies-next"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
+
+
+export default function page({params}) {
+
+    const [data, setData] = useState('')
+    const getAdmin = getCookie('adminData')
+    const [adminData, setAdminData] = useState('')
+    const [loader, setLoader] = useState(false)
+    const router = useRouter()
+
+    useEffect(() => {
+        if (getAdmin) {
+            const data = JSON.parse(getAdmin)
+            setAdminData(data)
+        }
+    }, [])
+
+    useEffect(() => {
+        FungetAdmin()
+    }, [adminData])
+
+    function FungetAdmin() {
+        if (adminData) {
+            axios({
+                url: `${apiData}/admin/showAll/adminProfile`,
+                method: 'get',
+                headers: {
+                    'Authorization': `Bearer ${adminData.access_token}`
+                }
+            }).then((res) => {
+                setData(res.data.admins)
+            })
+        }
+    }
+
+    function setAdmin() {
+        if (!data) {
+            return (
+                <div className="w-full h-[300px] bg-gray-100 flex items-center justify-center relative">
+                    <Loader />
+                </div>
+            )
+        }
+        if (data.length == 0) {
+            return (
+                <div className="w-full h-[100px] bg-gray-100 flex items-center justify-center font-bold text-gray-600">
+                    لا يوجد مسؤولين
+                </div>
+            )
+        }
+        if (data) {
+            console.log(data)
+            return (
+                data?.map((el, index) => {
+                    let bg = 'bg-gray-50'
+                    if (index % 2 === 0) {
+                        bg = 'bg-gray-100'
+                    } else {
+                        bg = 'bg-gray-50'
+                    }
+
+                    return (
+                        <Link href={`/dashboard/admins/${el.author.id}`} key={index} className={`grid relative grid-cols-5 p-2 ${bg} hover:bg-gray-200 items-center`}>
+                            {
+                                el.author.status == "active" 
+                                    ? <p className=" absolute right-3 rounded-full w-3 h-3 bg-green-500"></p>
+                                    : <p className=" absolute right-3 rounded-full w-3 h-3 bg-black"></p>
+                            }
+                            <p className=" text-center">{el.author.name}</p>
+                            <p className=" text-center">{el.author.role.name}</p>
+                            <p className=" text-center">{el.news.length}</p>
+                            <p className=" text-center col-start-4 col-end-6 truncate text-gray-600 px-4">{el.author.email}</p>
+                        </Link>
+                    )
+                })
+            )
+        }
+    }
+
+    function FunLoader() {
+        if (loader) {
+            return (
+                <div className="fixed w-full h-full bg-gray-200/80 z-50 flex items-center justify-center top-0 right-0">
+                    <Loader />
+                </div>
+            )
+        }
+    }
+
+    return (
+        <div className="w-full overflow-auto">
+            {FunLoader()}
+            <div className="p-2 px-4 border w-full flex justify-between bg-white border-r-8 border-r-red-700 items-center">
+                <p className="font-bold">المسؤولين</p>
+            </div>
+            <div className="bg-white my-6 min-w-[600px]">
+                <div className="grid grid-cols-5 justify-center py-3 font-bold text-gray-700 border-b">
+                    <p className=" text-center">الاسم</p>
+                    <p className=" text-center">الوظيفه</p>
+                    <p className=" text-center">عدد الاخبار</p>
+                    <p className=" text-center col-start-4 col-end-6"> البريد الالكترونى</p>
+                </div>
+                <div>
+                    {setAdmin()}
+                </div>
+            </div>
+        </div>
+    )
+}

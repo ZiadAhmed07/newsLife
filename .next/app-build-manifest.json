@@ -1,0 +1,102 @@
+{
+  "pages": {
+    "/(home)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(home)/page.css",
+      "static/chunks/app/(home)/page.js"
+    ],
+    "/(home)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(home)/layout.css",
+      "static/chunks/app/(home)/layout.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/error": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/error.js"
+    ],
+    "/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/loading.css",
+      "static/chunks/app/loading.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/not-found.js"
+    ],
+    "/dashboard/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/login/page.css",
+      "static/chunks/app/dashboard/login/page.js"
+    ],
+    "/dashboard/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/layout.js"
+    ],
+    "/dashboard/(dashboard)/home/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/home/page.css",
+      "static/chunks/app/dashboard/(dashboard)/home/page.js"
+    ],
+    "/dashboard/(dashboard)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/layout.css",
+      "static/chunks/app/dashboard/(dashboard)/layout.js"
+    ],
+    "/dashboard/(dashboard)/Category/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/Category/page.css",
+      "static/chunks/app/dashboard/(dashboard)/Category/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
+    ],
+    "/dashboard/(dashboard)/Category/[category]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/Category/[category]/page.css",
+      "static/chunks/app/dashboard/(dashboard)/Category/[category]/page.js"
+    ],
+    "/dashboard/(dashboard)/newsReviwe/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/newsReviwe/page.css",
+      "static/chunks/app/dashboard/(dashboard)/newsReviwe/page.js"
+    ],
+    "/dashboard/(dashboard)/newsReviwe/pending/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/newsReviwe/pending/page.css",
+      "static/chunks/app/dashboard/(dashboard)/newsReviwe/pending/page.js"
+    ],
+    "/dashboard/(dashboard)/newsReviwe/rejected/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/newsReviwe/rejected/page.css",
+      "static/chunks/app/dashboard/(dashboard)/newsReviwe/rejected/page.js"
+    ],
+    "/dashboard/(dashboard)/newsReviwe/published/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dashboard/(dashboard)/newsReviwe/published/page.css",
+      "static/chunks/app/dashboard/(dashboard)/newsReviwe/published/page.js"
+    ]
+  }
+}

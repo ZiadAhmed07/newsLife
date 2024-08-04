@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+.ql-hidden{
+  display: none;
+}
+
+body{
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+.navbar-hover:hover{
+  transition: 0.3s;
+  font-weight: 700;
+}
+
+.navbar-hover:hover div{
+  width: 100%;
+  transition: 0.3s ;
+}
+
+.transition1{
+  transition: all 1s;
+}
+
+.ButtonToTop{
+  animation: ButtonToTop 1s;
+}
+
+.LeftToRightD05{
+  animation: RightToLeft 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: backwards;
+  position: relative;
+}
+
+.LeftToRightD07{
+  animation: RightToLeft 1s;
+  animation-delay: 0.7s;
+  animation-fill-mode: backwards;
+  position: relative;
+}
+
+.LeftToRightD09{
+  animation: RightToLeft 1s;
+  animation-delay: 0.9s;
+  animation-fill-mode: backwards;
+  position: relative;
+}
+
+.RightToLeftNav{
+  animation: RightToLeftNav 1s;
+  animation-fill-mode: backwards;
+}
+
+.opacity{
+  animation: opacity 1.5s;
+  animation-delay: 1.5s;
+  animation-fill-mode: backwards;
+}
+
+
+
+@keyframes opacity{
+  0%{ opacity: 0; }
+  100%{ opacity: 1; }
+}
+
+@keyframes RightToLeft{
+  0%{ left: -200%; }
+  100%{ left: 0px; }
+}
+
+@keyframes RightToLeftNav{
+  0%{ right: -200%; }
+  100%{ right: 0px; }
+}
+
+@keyframes ButtonToTop{
+  0%{ transform: translateY(100%); }
+  100%{ transform: translateY(0px); }
+}
+
