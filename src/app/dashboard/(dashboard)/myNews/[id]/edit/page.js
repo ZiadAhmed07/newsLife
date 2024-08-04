@@ -223,7 +223,7 @@ export default function page({ params }) {
                         </div>
                         <div>
                             <label>الوصف</label><br />
-                            <input type="text" required value={data.description} onChange={(e) => { setData(p => ({ ...p, description: e.target.value })) }} placeholder="ادخل اسم كاتب المقال" className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                            <input type="text" required value={data.description} onChange={(e) => { setData(p => ({ ...p, description: e.target.value })) }} placeholder="ادخل وصف الخبر  " className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>
                         <div>
                             <div className='flex justify-between'>

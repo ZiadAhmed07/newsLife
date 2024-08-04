@@ -1,8 +1,9 @@
 {
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/dashboard/login/page": "app/dashboard/login/page.js",
-  "/dashboard/(dashboard)/Category/page": "app/dashboard/(dashboard)/Category/page.js",
+  "/(home)/page": "app/(home)/page.js",
+  "/dashboard/(dashboard)/Category/[category]/page": "app/dashboard/(dashboard)/Category/[category]/page.js",
   "/dashboard/(dashboard)/newsReviwe/page": "app/dashboard/(dashboard)/newsReviwe/page.js",
   "/dashboard/(dashboard)/newsReviwe/rejected/page": "app/dashboard/(dashboard)/newsReviwe/rejected/page.js",
-  "/dashboard/(dashboard)/Category/[category]/page": "app/dashboard/(dashboard)/Category/[category]/page.js",
   "/dashboard/(dashboard)/newsReviwe/published/page": "app/dashboard/(dashboard)/newsReviwe/published/page.js"
 }
