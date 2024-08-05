@@ -142,7 +142,7 @@ export default function News({ params }) {
                                 {
                                     data?.suggestedNews.length > 0 ? data?.suggestedNews?.map((e, i) => {
                                         return (
-                                            <Link href={`/dashboard/Category/${e.suggested_news.category.id}/${e.suggested_news.id}`} key={i} className="flex gap-3 ">
+                                            <Link href={`/category/${e.suggested_news.category.id}/${e.suggested_news.id}?news=${e.suggested_news.title.replace(/\s+/g, '-')}`} key={i} className="flex gap-3 ">
                                                 <Image src={`${apiImg}/${e.suggested_news.img}`} alt="..." width={200} height={200} className="w-[200px] h-[120px]" />
                                                 <div className="flex flex-col gap-2 justify-end">
                                                     <p>{e.suggested_news.title}</p>
