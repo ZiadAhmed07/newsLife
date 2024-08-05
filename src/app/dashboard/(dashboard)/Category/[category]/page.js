@@ -194,7 +194,7 @@ export default function page({ params }) {
                         </div>
                         <div className=" w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                             {
-                                search.map((el, index) => {
+                                search.reverse().map((el, index) => {
                                     return (
                                         <Link href={`/dashboard/Category/${params.category}/${el.id}`} key={index} className='hover:opacity-80 transition-all flex flex-col gap-2 shadow-md'>
                                             <Image src={`${apiImg}/${el.img}`} alt="" width={390} height={200} className="max-h-[200px]"/>

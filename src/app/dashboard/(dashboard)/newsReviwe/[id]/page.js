@@ -105,18 +105,8 @@ export default function page({ params }) {
                     </div>
                     <div className="flex flex-col gap-6 font-bold  text-gray-600">
                         <div>
-                            <div className="font-bold p-2 border border-r-8 border-r-red-700">الجزء الاول من المقال</div>
+                            <div className="font-bold p-2 border border-r-8 border-r-red-700">  المقال</div>
                             <p className=" max-sm:w-full  p-6 border whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: data.data.part1 }}>
-                            </p>
-                        </div>
-                        <div>
-                            <div className="font-bold p-2 border border-r-8 border-r-red-700">الجزء الثانى من المقال</div>
-                            <p className=" max-sm:w-full  p-6 border whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: data.data.part2 }}>
-                            </p>
-                        </div>
-                        <div>
-                            <div className="font-bold p-2 border border-r-8 border-r-red-700">الجزء الثالث من المقال</div>
-                            <p className="max-sm:w-full p-6 border whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: data.data.part3 }}>
                             </p>
                         </div>
 

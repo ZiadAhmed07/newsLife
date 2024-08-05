@@ -7,10 +7,12 @@ import Link from "next/link";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
 import { apiData, apiImg } from '@/data/url';
+import { useRouter } from 'next/navigation';
 
 export default function Card({ params }) {
     const [news, setNews] = useState("");
     const [hasMore, setHasMore] = useState(true);
+    const router = useRouter()
 
 
     const fetchNews = async () => {
@@ -56,6 +58,7 @@ export default function Card({ params }) {
             const filter = news.news?.filter((el)=>{
                 return el.status == "published"
             })
+            const reverse = filter.reverse()
             return (
                 <InfiniteScroll
                     dataLength={filter.length}
@@ -65,14 +68,14 @@ export default function Card({ params }) {
                     endMessage={''}
                 >
                     <div className="grid grid-cols-1  gap-5 py-2 sm:grid-cols-2 md:grid-cols-3">
-                        {filter?.map((item, index) => (
+                        {reverse?.map((item, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, translateY: "0px" }}
                                 whileInView={{ opacity: 1, translateY: "0px" }}
                                 transition={{ duration: 1.5 }}
                             >
-                                <Link href={`/category/${news.id}/${item.id}`} className='hover:opacity-80 transition-all flex flex-col gap-2 shadow-md'>
+                                <div onClick={()=>{ router.push(`/category/${news.id}/${item.id}?news=${item.title.replace(/\s+/g, '-')}`) }} className='hover:opacity-80 transition-all cursor-pointer bg-gray-50 rounded-md overflow-hidden flex flex-col gap-2 shadow-md'>
                                     <Image src={`${apiImg}/${item.img}`} alt={'...'} width={400} height={400} className='w-full h-[150px]'/>
                                     <div className="flex flex-col gap-2 p-3">
                                         <p className="text-gray-500 text-xs ">{item.formatted_date}</p>
@@ -82,7 +85,7 @@ export default function Card({ params }) {
                                             <p>by : {item.writer}</p>
                                         </div>
                                     </div>
-                                </Link>
+                                </div>
                             </motion.div>
                         ))}
                     </div>

@@ -18,10 +18,10 @@ export default function page({ params }) {
 
             <div className="w-full max-md:px-6">
                 <SliderOneCatigory params={params.category}/>
-                <div >
+                <div className="my-6">
                     <MiddleCategory/>
                 </div>
-                <div >
+                <div className="py-6">
                     <Card params={params}/>
                 </div>
                 <AdsFooter/>

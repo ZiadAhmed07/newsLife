@@ -140,7 +140,7 @@ export default function News({ params }) {
                             <div className="font-bold p-2 border border-r-8 border-r-red-700">اقراء ايضا</div>
                             <div className="py-4 flex gap-4 flex-col border p-2 rounded-md my-2">
                                 {
-                                    data?.suggestedNews?.map((e, i) => {
+                                    data?.suggestedNews.length > 0 ? data?.suggestedNews?.map((e, i) => {
                                         return (
                                             <Link href={`/dashboard/Category/${e.suggested_news.category.id}/${e.suggested_news.id}`} key={i} className="flex gap-3 ">
                                                 <Image src={`${apiImg}/${e.suggested_news.img}`} alt="..." width={200} height={200} className="w-[200px] h-[120px]" />
@@ -152,6 +152,7 @@ export default function News({ params }) {
                                             </Link>
                                         )
                                     })
+                                    : <p>لايوجد اخبار</p>
                                 }
                             </div>
                         </div>

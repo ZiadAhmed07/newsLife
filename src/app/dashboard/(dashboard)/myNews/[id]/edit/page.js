@@ -76,7 +76,7 @@ export default function page({ params }) {
                 setData({
                     title: data.title,
                     description : data.description,
-                    category_id: data.category.id,
+                    category_id: data.category?.id,
                     writer: data.writer,
                     img: data.img,
                     adsenseCode:data.adsenseCode,
@@ -228,7 +228,7 @@ export default function page({ params }) {
                         <div>
                             <div className='flex justify-between'>
                                 <label>القسم</label><br />
-                                <p>{category.name}</p>
+                                <p>{category?.name}</p>
                             </div>
                             <Select options={SelectData} onChange={(e) => { setData(p => ({ ...p, category_id: e.value })) }} />
                         </div>
@@ -262,17 +262,8 @@ export default function page({ params }) {
                         </div>
                         <div className='w-full h-[1px] bg-red-700 my-3'></div>
                         <div>
-                            <label>الجزء الاول من المقال</label><br />
+                            <label> المقال</label><br />
                             <QuillEditor value={data.part1} onChange={(e) => { setData(p => ({ ...p, part1: e })) }} />
-                        </div>
-
-                        <div>
-                            <label>الجزء الثانى من المقال</label><br />
-                            <QuillEditor value={data.part2} onChange={(e) => { setData(p => ({ ...p, part2: e })) }} />
-                        </div>
-                        <div>
-                            <label> الجزء الثالث من المقال</label><br />
-                            <QuillEditor value={data.part3} onChange={(e) => { setData(p => ({ ...p, part3: e })) }} />
                         </div>
 
                         <div>

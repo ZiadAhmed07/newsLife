@@ -241,7 +241,7 @@ export default function page() {
                     </div>
                     <div>
                         <label>الكاتب</label><br />
-                        <input type="text" placeholder="ادخل اسم كاتب المقال" onChange={(e) => { setData(p => ({ ...p, writer: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                        <input type="text" placeholder="المقال" onChange={(e) => { setData(p => ({ ...p, writer: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                     </div>
                     <div className='w-full h-[1px] bg-red-700 my-3'></div>
                     <div>
@@ -250,7 +250,7 @@ export default function page() {
                     </div>
                     <div>
                         <label>تاريخ النشر</label><br />
-                        <input type='date' placeholder="ادخل الجزء الثالث من المقال" onChange={(e) => { setData(p => ({ ...p, event_date: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                        <input type='date' onChange={(e) => { setData(p => ({ ...p, event_date: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                     </div>
                     <div>
                         <label>الاخبار المقترحه</label><br />

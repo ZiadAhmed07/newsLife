@@ -65,6 +65,7 @@ export default function IndexSidbarCard() {
             )
         }
         if (data && mostNews) {
+            console.log(data)
             return (
                 <div className="flex flex-col gap-10 sticky top-0">
                     <div className="flex flex-col gap-6 mt-10">
@@ -76,20 +77,7 @@ export default function IndexSidbarCard() {
                             {
                                 data[0]?.bestNews?.map((e, index) => {
                                     return (
-                                        <Link href={`/category/${data[0]?.id}/${e.news.id}`} key={index} className="flex gap-4 sm:flex-col">
-                                            <Image src={`${apiImg}/${e.news.img}`} width={200} height={200} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
-                                            <div className="flex flex-col gap-2">
-                                                <h2 className="text-xs font-bold">{e.news.title}</h2>
-                                                <p className="text-[10px] text-gray-500">{e.news.formatted_date}</p>
-                                            </div>
-                                        </Link>
-                                    )
-                                })
-                            }
-                            {
-                                data[0]?.bestNews?.slice(0, 2).map((e, index) => {
-                                    return (
-                                        <Link href={`/category/${data[0]?.id}/${e.news.id}`} key={index} className="flex gap-4 sm:flex-col">
+                                        <Link href={`/category/${data[0]?.id}/${e.news.id}?news=${e.news.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
                                             <Image src={`${apiImg}/${e.news.img}`} width={200} height={200} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
                                             <div className="flex flex-col gap-2">
                                                 <h2 className="text-xs font-bold">{e.news.title}</h2>
@@ -115,20 +103,7 @@ export default function IndexSidbarCard() {
                             {
                                 data[1]?.bestNews?.map((e, index) => {
                                     return (
-                                        <Link href={`/category/${data[1]?.id}/${e.news.id}`} key={index} className="flex gap-4 sm:flex-col">
-                                            <Image src={`${apiImg}/${e.news.img}`} width={200} height={200} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
-                                            <div className="flex flex-col gap-2">
-                                                <h2 className="text-xs font-bold">{e.news.title}</h2>
-                                                <p className="text-[10px] text-gray-500">{e.news.formatted_date}</p>
-                                            </div>
-                                        </Link>
-                                    )
-                                })
-                            }
-                            {
-                                data[1]?.bestNews?.slice(0, 2).map((e, index) => {
-                                    return (
-                                        <Link href={`/category/${data[1]?.id}/${e.news.id}`} key={index} className="flex gap-4 sm:flex-col">
+                                        <Link href={`/category/${data[1]?.id}/${e.news.id}?news=${e.news.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
                                             <Image src={`${apiImg}/${e.news.img}`} width={200} height={200} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
                                             <div className="flex flex-col gap-2">
                                                 <h2 className="text-xs font-bold">{e.news.title}</h2>
@@ -153,7 +128,7 @@ export default function IndexSidbarCard() {
                             {
                                 mostNews?.slice(0, 6).map((e, index) => {
                                     return (
-                                        <Link href={`/category/${e.category_id}/${e.id}`} key={index} className="flex gap-4 sm:flex-col">
+                                        <Link href={`/category/${e.category_id}/${e.id}?news=${e.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
                                             <Image src={`${apiImg}/${e.img}`} width={200} height={200} alt="..." className="hover:opacity-80 h-[150px] w-[200px] sm:w-full" />
                                             <div className="flex flex-col gap-2">
                                                 <h2 className="text-xs font-bold">{e.title}</h2>

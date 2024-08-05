@@ -80,8 +80,8 @@ export default function ShapeSlider() {
                                     <div className='w-full h-full relative'>
                                         <div className='absolute w-full h-full flex flex-col justify-center p-6 gap-4 bg-gray-950/50'>
                                             <h2 className='text-[30px] max-sm:text-[20px] font-bold text-white max-sm:w-[100%] w-[70%]'>{el.news.title}</h2>
-                                            <p className='text-[20px] max-sm:text-[16px] text-white max-sm:w-[100%] w-[70%] h-[60px] max-sm:h-[46px] overflow-hidden'>{el.news.part1}</p>
-                                            <Link href={`/category/${el.news.category?.id}/${el.news.id}`} className='px-8 py-2 font-bold bg-red-700 text-white w-fit rounded-md hover:shadow-xl hover:bg-red-800'>التفاصيل</Link>
+                                            <p className='text-[20px] max-sm:text-[16px] text-white max-sm:w-[100%] w-[70%] h-[60px] max-sm:h-[46px] overflow-hidden'>{el.news.description}</p>
+                                            <Link href={`/category/${el.news.category?.id}/${el.news.id}?news=${el.news.title.replace(/\s+/g, '-')}`} className='px-8 py-2 font-bold bg-red-700 text-white w-fit rounded-md hover:shadow-xl hover:bg-red-800'>التفاصيل</Link>
                                         </div>
                                         <Image src={`${apiImg}/${el.news.img}`} alt='...' className='w-full h-full' width={1000} height={1000} />
                                     </div>

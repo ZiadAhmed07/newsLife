@@ -92,7 +92,7 @@ export default function SliderOneCatigory({ params }) {
                                 data.bestNews?.map((el , index) => {
                                     return (
                                         <SwiperSlide key={index} className='bg-red-200 w-full h-full'>
-                                            <Link href={`/category/${data.id}/${el.news.id}`}>
+                                            <Link href={`/category/${data.id}/${el.news.id}?news=${el.news.title.replace(/\s+/g, '-')}`}>
                                                 <h2 className='absolute text-xl font-bold w-[90%] bottom-6 right-6 text-white'>{el.news.title}</h2>
                                                 <Image width={300} height={300} src={`${apiImg}/${el.news.img}`} alt='...' className='w-full h-full' />
                                             </Link>
@@ -105,7 +105,7 @@ export default function SliderOneCatigory({ params }) {
 
                     <div className='max-md:hidden w-full h-full  flex flex-col gap-4 lg:flex-row relative'>
 
-                        <Link href={`/category/${data.id}/${data.bestNews[0]?.news.id}`} className='w-full h-full hover:opacity-80 relative flex items-center'>
+                        <Link href={`/category/${data.id}/${data.bestNews[0]?.news.id}?news=${data.bestNews[0]?.news.title.replace(/\s+/g, '-')}`} className='w-full h-full hover:opacity-80 relative flex items-center'>
                             <Image width={300} height={300} src={`${apiImg}/${data.bestNews[0]?.news.img}`} alt='...' className='w-full h-full ' />
                             <h2 className='absolute text-xl font-bold w-[80%] lg:bottom-6 right-6 text-white'>{data.bestNews[0]?.news.title}</h2>
                         </Link>
@@ -114,7 +114,7 @@ export default function SliderOneCatigory({ params }) {
                             {
                                 data.bestNews?.slice(1,4).map((el , i)=>{
                                     return(
-                                        <Link key={i} href={`/category/${data.id}/${el.news.id}`} className=' w-full h-full hover:opacity-80 relative'>
+                                        <Link key={i} href={`/category/${data.id}/${el.news.id}?news=${el.news.title.replace(/\s+/g, '-')}`} className=' w-full h-full hover:opacity-80 relative'>
                                             <h2 className='absolute p-2 text-xs md:bottom-0 md:right-0 text-white'>{el.news.title}</h2>
                                             <Image width={300} height={300} src={`${apiImg}/${el.news.img}`} alt='...' className='w-full h-full ' />
                                         </Link>

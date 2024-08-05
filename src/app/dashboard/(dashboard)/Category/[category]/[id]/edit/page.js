@@ -262,19 +262,9 @@ export default function page({ params }) {
                         </div>
                         <div className='w-full h-[1px] bg-red-700 my-3'></div>
                         <div>
-                            <label>الجزء الاول من المقال</label><br />
+                            <label>  المقال</label><br />
                             <QuillEditor value={data.part1} onChange={(e) => { setData(p => ({ ...p, part1: e })) }} />
                         </div>
-
-                        <div>
-                            <label>الجزء الثانى من المقال</label><br />
-                            <QuillEditor value={data.part2} onChange={(e) => { setData(p => ({ ...p, part2: e })) }} />
-                        </div>
-                        <div>
-                            <label> الجزء الثالث من المقال</label><br />
-                            <QuillEditor value={data.part3} onChange={(e) => { setData(p => ({ ...p, part3: e })) }} />
-                        </div>
-
                         <div>
                             <label>الكلمات المفتاحيه</label><br />
                             {TagWord()}

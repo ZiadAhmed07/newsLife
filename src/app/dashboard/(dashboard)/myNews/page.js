@@ -65,7 +65,7 @@ export default function page() {
             return (
                 <div className=" w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-3 p-4">
                     {
-                        data?.map((e , i)=>{
+                        data.reverse()?.map((e , i)=>{
                             return(
                                 <Link title="مسوده" key={i} href={`/dashboard/myNews/${e.id}`} className="shadow-xl rounded-md relative font-bold bg-gray-100 text-gray-600 p-4 ">
                                     <div className=" absolute w-3 h-3 rounded-full bg-black  top-3 left-3 "></div>
