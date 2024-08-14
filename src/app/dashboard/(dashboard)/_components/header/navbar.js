@@ -85,7 +85,7 @@ export default function Navbar() {
                     </div>
                     <div className="p-6 border border-gray-300 rounded-lg">
                         <p>{data?.admin?.name}</p>
-                        <p>{data?.admin?.email}</p>
+                        <p className="truncate">{data?.admin?.email}</p>
                         <button onClick={logout} className="py-2 text-red-500 hover:text-red-700">تسجيل الخروج</button>
                     </div>
                 </div>

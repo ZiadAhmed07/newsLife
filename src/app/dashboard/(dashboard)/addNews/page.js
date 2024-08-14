@@ -29,7 +29,7 @@ export default function page() {
 
     const [data, setData] = useState({
         title: '',
-        description:'',
+        description: '',
         writer: '',
         event_date: '',
         img: '',
@@ -41,9 +41,9 @@ export default function page() {
         category_id: '',
         status: '',
         adsenseCode: "",
-        videoUrl:'',
-        videoLabel:'',
-        suggestedNews_ids:'',
+        videoUrl: '',
+        videoLabel: '',
+        suggestedNews_ids: '',
     })
 
     useEffect(() => {
@@ -90,7 +90,7 @@ export default function page() {
             }).then((res) => {
                 const data = res.data.news
                 console.log(data)
-                const filer = data.filter((e)=>{
+                const filer = data.filter((e) => {
                     return e.status == "published"
                 })
                 let convertedCategories = filer?.map((el, i) => ({
@@ -115,13 +115,13 @@ export default function page() {
 
     function SasuggestedNews_ids() {
         const handleChange = (e) => {
-            const value = e?.map((e)=>e.value)
+            const value = e?.map((e) => e.value)
             setSuggestedNews(e);
             setData(prev => ({
-                ...prev, suggestedNews_ids:value
+                ...prev, suggestedNews_ids: value
             }))
         };
-        return <Select options={SelectDataNews} isMulti value={suggestedNews} onChange={handleChange }/>;
+        return <Select options={SelectDataNews} isMulti value={suggestedNews} onChange={handleChange} />;
     }
 
     function postData(e) {
@@ -140,30 +140,38 @@ export default function page() {
             status: 'reviewed',
             adsenseCode: adminData.admin.adsenseCode,
             description: data.description,
-            videoUrl : data.videoUrl,
-            videoLabel : data.videoLabel,
+            videoUrl: data.videoUrl,
+            videoLabel: data.videoLabel,
             suggested_news_ids: JSON.stringify(data.suggestedNews_ids)
         }
-        if (data.title && data.writer && data.event_date && data.img && rejData.part1 && data.category_id && data.description ) {
-            setLoader(true)
-            axios({
-                url: `${apiData}/admin/create/news`,
-                method: 'post',
-                headers: {
-                    'Authorization': `Bearer ${adminData.access_token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-                data: rejData,
-            }).then((res) => {
-                console.log(res)
-                setLoader(false)
-                router.replace('/dashboard/myNews/review')
-                return toast.success('تم انشاء الخبر بنجاح')
-            }).catch((err) => {
-                console.log(err)
-                setLoader(false)
-                return toast.error('حدث خطا ما! حاول مجددا')
-            })
+        if (data.title && data.writer && data.img && rejData.part1 && data.category_id && data.description) {
+            if (data.description.length <= 160) {
+                if (editorContent1.length >= 2000) {
+                    setLoader(true)
+                    axios({
+                        url: `${apiData}/admin/create/news`,
+                        method: 'post',
+                        headers: {
+                            'Authorization': `Bearer ${adminData.access_token}`,
+                            'Content-Type': 'multipart/form-data',
+                        },
+                        data: rejData,
+                    }).then((res) => {
+                        console.log(res)
+                        setLoader(false)
+                        router.replace('/dashboard/myNews/review')
+                        return toast.success('تم انشاء الخبر بنجاح')
+                    }).catch((err) => {
+                        console.log(err)
+                        setLoader(false)
+                        return toast.error('حدث خطا ما! حاول مجددا')
+                    })
+                } else {
+                    return toast.warn('يجب ان يكون  المقال اكثر من 2000 حرف')
+                }
+            } else {
+                return toast.warn('يجب ان يكون وصف الخبر اقل من 160 حرف')
+            }
         } else {
             return toast.warn('يجب اكمال البيانات المفقوده')
         }
@@ -186,10 +194,11 @@ export default function page() {
             status: 'pending',
             adsenseCode: adminData.admin.adsenseCode,
             description: data.description,
-            videoUrl : data.videoUrl,
-            videoLabel : data.videoLabel,
+            videoUrl: data.videoUrl,
+            videoLabel: data.videoLabel,
             suggested_news_ids: JSON.stringify(data.suggestedNews_ids)
         }
+        console.log(rejData)
         axios({
             url: `${apiData}/admin/create/news`,
             method: 'post',
@@ -241,21 +250,22 @@ export default function page() {
                     </div>
                     <div>
                         <label>الكاتب</label><br />
-                        <input type="text" placeholder="المقال" onChange={(e) => { setData(p => ({ ...p, writer: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                        <input type="text" placeholder="كاتب المقال" onChange={(e) => { setData(p => ({ ...p, writer: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                     </div>
                     <div className='w-full h-[1px] bg-red-700 my-3'></div>
                     <div>
                         <label>صوره الخبر</label><br />
                         <input type='file' placeholder="" onChange={(e) => { setData(p => ({ ...p, img: e.target.files[0] })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                     </div>
-                    <div>
+                    {/*<div>
                         <label>تاريخ النشر</label><br />
                         <input type='date' onChange={(e) => { setData(p => ({ ...p, event_date: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
-                    </div>
+                    </div>*/}
                     <div>
                         <label>الاخبار المقترحه</label><br />
                         {SasuggestedNews_ids()}
                     </div>
+
                     <div>
                         <label>فيديو خاص بالخبر</label><br />
                         <p className='text-xs text-blue-500'>يظهر عنوان الفيديو تحت القسم الجزء الثانى من المقال</p>
@@ -267,12 +277,37 @@ export default function page() {
                     <div className='w-full h-[1px] bg-red-700 my-3'></div>
                     <div>
                         <label>الجزء الاول من المقال</label><br />
-                        <QuillEditor  onChange={(e)=>{setEditorContent1(e)}} />
+                        <QuillEditor onChange={(e) => { setEditorContent1(e) }} />
                     </div>
                     <div>
                         <label>الكلمات المفتاحيه</label><br />
                         {TagWord()}
                     </div>
+                </div>
+                <div className='p-4 border border-red-700 rounded-md text-gray-500 font-bold text-sm'>
+                    <h2 className='text-lg'> اتباع القواعد اللغوية والاملائيه</h2>
+                    <ol className='p-2 pr-6'>
+                        <div className='flex gap-2 items-center'>
+                            <span className='h-2 w-2 rounded-full bg-red-700'></span>
+                            <li>مراعاه ال seo</li>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <span className='h-2 w-2 rounded-full bg-red-700'></span>
+                            <li>لا تقل عن ٣٥٠ كلمه {'(2000 حرف)'}</li>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <span className='h-2 w-2 rounded-full bg-red-700'></span>
+                            <li>الوصف ا يعزيد عن ٢٠ كلمه {'(160 حرف)'}</li>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <span className='h-2 w-2 rounded-full bg-red-700'></span>
+                            <li>العنوان  الرئيسي لا يزيد عن ١٠ كلمات</li>
+                        </div>
+                        <div className='flex gap-2 items-center'>
+                            <span className='h-2 w-2 rounded-full bg-red-700'></span>
+                            <li>مراعات عمل عناوين فرعيه {'(heading 2)'}</li>
+                        </div>
+                    </ol>
                 </div>
                 <div className=" flex gap-6 flex-col sm:flex-row">
                     <input type='submit' value={'اضافه خبر جديد'} className=" text-white bg-red-700 p-2 px-6 cursor-pointer hover:bg-red-800 rounded-lg" />

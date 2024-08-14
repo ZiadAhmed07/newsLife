@@ -67,7 +67,7 @@ export default function page() {
                     }
                     return (
                         <Link href={`/dashboard/contact/${el.contact.id}`} key={index} className={`grid grid-cols-4 p-2 ${bg} hover:bg-gray-200 items-center`}>
-                            <p className=" text-center">{el.user.name}</p>
+                            <p className=" text-center">{el.user?.name || 'تم حذف المستخدم'}</p>
                             <p className=" text-center">{el.contact?.phone}</p>
                             <p className=" text-center col-start-3 col-end-5 truncate text-gray-600 px-4">{el.contact.message}</p>
                         </Link>

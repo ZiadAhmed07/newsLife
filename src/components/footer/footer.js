@@ -77,7 +77,7 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-y-2 gap-x-10 ">
               <Link href={"/ads"}>الاعلان معنا</Link>
               <Link href={"/contact"}>تواصل معنا</Link>
-              <Link href={"/team"}>فريق العمل</Link>
+              {/*<Link href={"/team"}>فريق العمل</Link>*/}
               <Link href={"/about"}>من نحن</Link>
               <Link href={"/user/signin"} onClick={() => { setCookie('PrevUrl', pathname) }}>تسجيل دخول</Link>
               <Link href={"/user/signup"} >انشاء حساب</Link>

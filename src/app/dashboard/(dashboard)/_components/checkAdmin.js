@@ -46,7 +46,9 @@ export default function CheckAdmin() {
                     || pathName.startsWith('/dashboard/admins')
                     || pathName.startsWith('/dashboard/newsReviwe')
                     || pathName.startsWith('/dashboard/Category') && pathName.endsWith('/edit')
-                ) {
+                    || pathName.startsWith('/dashboard/addAds')
+                ) 
+                {
                     router.replace('/dashboard/home')
                     setTimeout(()=>{
                         setHiddenRole('hidden')
@@ -56,7 +58,7 @@ export default function CheckAdmin() {
                 }
             }
         }
-    }, [admin])
+    }, [admin , pathName])
 
     useEffect(() => {
         if (admin) {
@@ -65,6 +67,7 @@ export default function CheckAdmin() {
                     pathName.startsWith('/dashboard/addAdmin')
                     || pathName.startsWith('/dashboard/users')
                     || pathName.startsWith('/dashboard/admins')
+                    || pathName.startsWith('/dashboard/addAds')
                 ) {
                     router.replace('/dashboard/home')
                     setTimeout(()=>{
@@ -75,7 +78,7 @@ export default function CheckAdmin() {
                 }
             }
         }
-    }, [admin])
+    }, [admin , pathName])
 
     useEffect(() => {
         if (admin) {
@@ -83,7 +86,7 @@ export default function CheckAdmin() {
                 setHiddenRole('hidden')
             }
         }
-    }, [admin])
+    }, [admin , pathName])
 
 
     return (

@@ -60,7 +60,7 @@ export default function page() {
             )
         }
         if (data) {
-            const rev = data.reverse()
+            const rev = [...data].reverse()
             console.log(rev)
             return (
                 <div className=" w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-3 p-4">

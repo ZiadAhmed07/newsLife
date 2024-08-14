@@ -95,10 +95,15 @@ export default function page() {
                         <label>تاكيد كلمه المرور</label><br />
                         <input type="password" name="password_confirmation" placeholder="تاكيد كلمه المرور" required onChange={handleChange} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                     </div>
-                    <div>
+                    {
+                        /*
+                        <div>
                         <label>كود ادسينس</label><br />
                         <input type="text" name="password_confirmation" placeholder="ادخل الرمز التعريفى " onChange={handleChange} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                     </div>
+                        */
+                    }
+
                     <div>
                         <label>وظيفه المسؤول</label><br />
                         <div>

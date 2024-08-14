@@ -11,7 +11,6 @@ import axios from "axios";
 import { apiData, apiImg } from "@/data/url";
 import AdsFooter from "@/components/ads/footer";
 
-
 export default function News({ params }) {
 
     const [data, setData] = useState()
@@ -27,6 +26,16 @@ export default function News({ params }) {
             setData(data)
         })
     }, [])
+
+
+    useEffect(() => {
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+            console.log(error.message)
+        }
+    }, [])
+
 
     function getNews() {
         if (!data) {
@@ -68,15 +77,16 @@ export default function News({ params }) {
             if (data.status = 'published') {
                 return (
                     <div className=" w-full my-10 px-6 flex flex-col gap-6">
+
                         <div>
                             <h3 className="font-bold text-lg p-2 border border-r-8 border-r-red-700">
                                 {data.category.name}
                             </h3>
                         </div>
                         <div className="flex flex-col gap-4">
-                            <h2 className="font-bold text-2xl max-md:text-xl">
+                            <h1 className="font-bold text-2xl max-md:text-xl">
                                 {data.title}
-                            </h2>
+                            </h1>
                             <div className="text-sm font-bold text-gray-600 flex gap-8">
                                 <p> {data.event_date}</p>
                                 <p>by : {data.writer}</p>
@@ -85,15 +95,31 @@ export default function News({ params }) {
                         <div>
                             <Image src={`${apiImg}/${data.img}`} width={600} height={600} alt="..." className="w-[600px]" />
                         </div>
-                        <div className="mb-4">
-                            <p>{data.description}</p>
+
+                        <div className="flex justify-center ">
+                            <div className="max-sm:hidden bg-gray-100 h-[300px] w-[300px]">
+                            <ins className="adsbygoogle "
+                                style={{ display: "block" }}
+                                data-ad-client="ca-pub-8948820292282679"
+                                data-ad-slot="5236804482"
+                                data-ad-format="rspv"
+                                data-full-width-responsive="true">
+                            </ins>
+                            </div>
+                            <div className="sm:hidden bg-gray-100 w-full h-[300px]">
+                                <amp-ad width="100vw" height="300"
+                                    type="adsense"
+                                    data-ad-client="ca-pub-8948820292282679"
+                                    data-ad-slot="5236804482"
+                                    data-auto-format="rspv"
+                                    data-full-width="">
+                                    <div overflow=""></div>
+                                </amp-ad>
+                            </div>
                         </div>
+
                         <div className="flex flex-col gap-6 font-bold  text-gray-600">
-                            <p className="w-[90%] max-sm:w-full whitespace-pre-wrap font-bold text-lg font-sans leading-relaxed" dangerouslySetInnerHTML={{ __html: data.part1 }}>
-                            </p>
-                            
-                            <p className="w-[90%] max-sm:w-full whitespace-pre-wrap font-bold text-lg font-sans leading-relaxed" dangerouslySetInnerHTML={{ __html: data.part2 }}>
-                            </p>
+                            <div className="w-[90%] max-sm:w-full whitespace-pre-wrap font-bold text-lg font-sans leading-relaxed" dangerouslySetInnerHTML={{ __html: data.part1 }}></div>
                             {
                                 data.videoLabel
                                     ? <div>
@@ -110,10 +136,30 @@ export default function News({ params }) {
                                     </div>
                                     : console.log('123')
                             }
-                            
-                            <p className="w-[90%] whitespace-pre-wrap max-sm:w-full font-bold text-lg font-sans leading-relaxed" dangerouslySetInnerHTML={{ __html: data.part3 }}>
-                            </p>
                         </div>
+
+                        <div className="flex justify-center">
+                            <div className="max-sm:hidden w-[300px] h-[300px] bg-gray-100">
+                            <ins className="adsbygoogle "
+                                style={{display:"block"}}
+                                data-ad-client="ca-pub-8948820292282679"
+                                data-ad-slot="8916664233"
+                                data-ad-format="rspv"
+                                data-full-width-responsive="true">
+                            </ins>
+                            </div>
+                            <div className="sm:hidden w-full h-[300px] bg-gray-100">
+                                <amp-ad width="100vw" height="300"
+                                    type="adsense"
+                                    data-ad-client="ca-pub-8948820292282679"
+                                    data-ad-slot="8916664233"
+                                    data-auto-format="rspv"
+                                    data-full-width="">
+                                    <div overflow=""></div>
+                                </amp-ad>
+                            </div>
+                        </div>
+
                         <div className="flex gap-4 flex-wrap">
                             {
                                 data.keyWords?.map((e, i) => {
@@ -125,7 +171,7 @@ export default function News({ params }) {
                         </div>
 
                         <div>
-                            <NewsPage news={{ title: data.title, content: data.description, url: `${"رابط الموقع"}/${data.category.name}/${data.id}` }} />
+                            <NewsPage news={{ title: data.title, content: data.description, url: `${"https://alwatanynews.com"}/category/${data.category.id}/${data.id}` }} />
                         </div>
                         <div>
                             <Link href={"https://news.google.com/s/CBIwgvK0gKYB?sceid=EG:ar&sceid=EG:ar&r=0&oc=1"} target="_blank" className="flex gap-4 items-center w-full shadow-md p-2 rounded-md">
@@ -133,7 +179,6 @@ export default function News({ params }) {
                                 <p className="font-bold">تابعوا آخر أخبار الوطنى نيوز عبر Google News</p>
                             </Link>
                         </div>
-
                         <div className="w-full h-[1px] bg-gray-200 my-4"></div>
 
                         <div>
@@ -142,9 +187,9 @@ export default function News({ params }) {
                                 {
                                     data?.suggestedNews.length > 0 ? data?.suggestedNews?.map((e, i) => {
                                         return (
-                                            <Link href={`/category/${e.suggested_news.category.id}/${e.suggested_news.id}?news=${e.suggested_news.title.replace(/\s+/g, '-')}`} key={i} className="flex gap-3 ">
+                                            <Link href={`/category/${e.suggested_news.category.id}/${e.suggested_news.id}?news=${e.suggested_news.title.replace(/\s+/g, '-')}`} key={i} className="flex gap-4 max-sm:flex-col hover:bg-gray-100">
                                                 <Image src={`${apiImg}/${e.suggested_news.img}`} alt="..." width={200} height={200} className="w-[200px] h-[120px]" />
-                                                <div className="flex flex-col gap-2 justify-end">
+                                                <div className="flex flex-col gap-2 justify-end max-sm:w-[250px]">
                                                     <p>{e.suggested_news.title}</p>
                                                     <p className="font-bold text-[10px] text-gray-600">{e.suggested_news.formatted_date}</p>
                                                     <p className="text-red-700 font-bold">{e.suggested_news.category.name}</p>
@@ -152,7 +197,7 @@ export default function News({ params }) {
                                             </Link>
                                         )
                                     })
-                                    : <p>لايوجد اخبار</p>
+                                        : <p>لايوجد اخبار</p>
                                 }
                             </div>
                         </div>
@@ -160,34 +205,37 @@ export default function News({ params }) {
                         <div className="w-full h-[1px] bg-gray-200 my-4"></div>
 
                         <div className="mt-4">
-                            <div>
-                                <h3 className="font-bold text-lg p-2 border border-r-8 border-r-red-700">
+                            <div className="flex justify-between  text-lg p-2 border border-r-8 border-r-red-700 items-center gap-6">
+                                <h3 className="font-bold">
                                     شاركنا برايك
                                 </h3>
+                                <p className="text-xs text-red-700">سيتم مراجعه التعليق قبل النشر</p>
                             </div>
                             <Form params={params} />
                             <div className=" w-full flex flex-col gap-4 my-4">
                                 {
-                                    filter?.map((e, i) => {
-                                        return (
-                                            <div className="flex flex-col border rounded-xl overflow-hidden">
-                                                <div className="flex gap-4 bg-gray-50 p-2">
-                                                    <div className="bg-red-700 h-[40px] w-[40px] rounded-full flex justify-center items-center font-bold text-white text-lg">م</div>
-                                                    <div>
-                                                        <p className=" font-bold">{e.comment.user.name}</p>
-                                                        <p className="font-bold text-xs text-gray-600">{e.comment.user.name}</p>
+                                    filter.length > 0
+                                        ? filter?.map((e, i) => {
+                                            return (
+                                                <div className="flex flex-col border rounded-xl overflow-hidden">
+                                                    <div className="flex gap-4 bg-gray-50 p-2">
+                                                        <div className="bg-red-700 h-[40px] w-[40px] rounded-full flex justify-center items-center font-bold text-white text-lg">م</div>
+                                                        <div>
+                                                            <p className=" font-bold">{e.comment.user.name}</p>
+                                                            <p className="font-bold text-xs text-gray-600">{e.comment.user.name}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="p-6">
+                                                        {e.comment.comment}
                                                     </div>
                                                 </div>
-                                                <div className="p-6">
-                                                    {e.comment.comment}
-                                                </div>
-                                            </div>
-                                        )
-                                    })
+                                            )
+                                        })
+                                        : <div className="border p-6 h-[150px] flex items-center justify-center">لا يوجد تعليقات</div>
                                 }
                             </div>
                         </div>
-                        <AdsFooter/>
+                        <AdsFooter />
                     </div>
                 )
             }

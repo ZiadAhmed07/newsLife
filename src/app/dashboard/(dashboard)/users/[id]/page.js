@@ -5,6 +5,7 @@ import { apiData } from "@/data/url"
 import axios from "axios"
 import { getCookie } from "cookies-next"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
@@ -16,6 +17,7 @@ export default function Admin({params}){
     const [adminData, setAdminData] = useState('')
     const [loader, setLoader] = useState(false)
     const [DeleteHidden, setDeleteHidden] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         if (getAdmin) {

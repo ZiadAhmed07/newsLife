@@ -18,7 +18,7 @@ export default function CardNew() {
             url: `${apiData}/user/showAll/category`,
             method: 'get',
         }).then((res) => {
-            setData(res.data.data.slice(0, 6))
+            setData(res.data.data?.slice(0, 6))
         })
     }, [])
 
@@ -41,9 +41,14 @@ export default function CardNew() {
             )
         }
         if (data) {
+            console.log(data)
             return (
                 data?.map((data, i) => {
-                    console.log(data)
+                    
+                    const rev = [...data.news].reverse()
+                    const filter = rev.filter((e)=>{
+                        return e.status == "published"
+                    })
                     return (
                         <div key={i} className="flex flex-col gap-6">
                             <div className="border p-2 border-r-8 border-r-red-700 flex justify-between items-center">
@@ -52,34 +57,34 @@ export default function CardNew() {
                             </div>
 
                             <div className="flex gap-6 justify-between max-lg:flex-col max-md:flex-row max-sm:flex-col">
-                                <Link href={`/category/${data?.id}/${data?.bestNews[0]?.news.id}?news=${data.bestNews[0]?.news?.title.replace(/\s+/g, '-')}`} className="flex flex-col gap-4">
-                                    <Image width={400} height={400} src={`${apiImg}/${data?.bestNews[0]?.news.img}`} alt="..." className="w-full md:w-[500px] lg:w-full hover:opacity-80 transition max-h-[300px] " />
-                                    <h2 className="font-bold text-lg w-full md:w-[500px] lg:w-full">{data?.bestNews[0]?.news?.title}</h2>
-                                    <p className="text-sm font-bold text-gray-500">{data?.bestNews[0]?.news?.formatted_date}</p>
+                                <Link href={`/category/${data?.id}/${filter[0]?.id}?news=${filter[0]?.title?.replace(/\s+/g, '-')}`} className="flex flex-col gap-4">
+                                    <Image width={400} height={400} src={`${apiImg}/${filter[0]?.img}`} alt="..." className="w-full md:w-[500px] lg:w-full hover:opacity-80 transition max-h-[300px] " />
+                                    <h2 className="font-bold text-lg w-full md:w-[500px] lg:w-full">{filter[0]?.title}</h2>
+                                    <p className="text-sm font-bold text-gray-500">{filter[0]?.formatted_date}</p>
                                 </Link>
 
                                 <div className="flex flex-col gap-4 max-lg:flex-row max-md:flex-col ">
-                                    <Link href={`/category/${data?.id}/${data?.bestNews[1]?.news.id}?news=${data.bestNews[0]?.news?.title.replace(/\s+/g, '-')}`} className="flex gap-4 max-lg:flex-col max-sm:flex-row max-sm:gap-6">
-                                        <Image  height={200} src={`${apiImg}/${data?.bestNews[1]?.news.img}`} alt="..." width={120} className="w-full  max-w-[140px] max-h-[100px] hover:opacity-80 transition" />
+                                    <Link href={`/category/${data?.id}/${filter[1]?.id}?news=${filter[1]?.title?.replace(/\s+/g, '-')}`} className="flex gap-4 max-lg:flex-col max-sm:flex-row max-sm:gap-6">
+                                        <Image  height={200} src={`${apiImg}/${filter[1]?.img}`} alt="..." width={120} className="w-full  max-w-[140px] max-h-[100px] hover:opacity-80 transition" />
                                         <div className="w-[300px] max-lg:w-[150px] max-sm:w-full flex flex-col justify-around max-md:w-[120px] gap-2">
-                                            <h2 className=" text-xs">{data?.bestNews[1]?.news?.title}</h2>
-                                            <p className="text-[10px] font-bold text-gray-500">{data?.bestNews[1]?.news?.formatted_date}</p>
+                                            <h2 className=" text-xs">{filter[1]?.title}</h2>
+                                            <p className="text-[10px] font-bold text-gray-500">{filter[1]?.formatted_date}</p>
                                         </div>
                                     </Link>
 
-                                    <Link href={`/category/${data?.id}/${data?.bestNews[2]?.news.id}?news=${data.bestNews[0]?.news?.title.replace(/\s+/g, '-')}`} className="flex gap-4 max-lg:flex-col max-sm:flex-row max-sm:gap-6">
-                                        <Image  height={200} src={`${apiImg}/${data?.bestNews[2]?.news.img}`} alt="..." width={120} className="w-full  max-w-[140px] max-h-[100px] hover:opacity-80 transition" />
+                                    <Link href={`/category/${data?.id}/${filter[2]?.id}?news=${filter[2]?.title?.replace(/\s+/g, '-')}`} className="flex gap-4 max-lg:flex-col max-sm:flex-row max-sm:gap-6">
+                                        <Image  height={200} src={`${apiImg}/${filter[2]?.img}`} alt="..." width={120} className="w-full  max-w-[140px] max-h-[100px] hover:opacity-80 transition" />
                                         <div className="w-[300px] max-lg:w-[150px] max-sm:w-full flex flex-col justify-around max-md:w-[120px] gap-2">
-                                            <h2 className=" text-xs">{data?.bestNews[2]?.news?.title}</h2>
-                                            <p className="text-[10px] font-bold text-gray-500">{data?.bestNews[2]?.news?.formatted_date}</p>
+                                            <h2 className=" text-xs">{filter[2]?.title}</h2>
+                                            <p className="text-[10px] font-bold text-gray-500">{filter[2]?.formatted_date}</p>
                                         </div>
                                     </Link>
 
-                                    <Link href={`/category/${data?.id}/${data?.bestNews[3]?.news.id}?news=${data.bestNews[0]?.news?.title.replace(/\s+/g, '-')}`} className="flex gap-4 max-lg:flex-col max-sm:flex-row max-sm:gap-6">
-                                        <Image  height={200} src={`${apiImg}/${data?.bestNews[3]?.news.img}`} alt="..." width={120} className="w-full max-w-[140px] max-h-[100px] hover:opacity-80 transition" />
+                                    <Link href={`/category/${data?.id}/${filter[3]?.id}?news=${filter[3]?.title?.replace(/\s+/g, '-')}`} className="flex gap-4 max-lg:flex-col max-sm:flex-row max-sm:gap-6">
+                                        <Image  height={200} src={`${apiImg}/${filter[3]?.img}`} alt="..." width={120} className="w-full max-w-[140px] max-h-[100px] hover:opacity-80 transition" />
                                         <div className="w-[300px] max-lg:w-[150px] max-sm:w-full flex flex-col justify-around max-md:w-[120px] gap-2">
-                                            <h2 className=" text-xs">{data?.bestNews[3]?.news?.title}</h2>
-                                            <p className="text-[10px] font-bold text-gray-500">{data?.bestNews[3]?.news?.formatted_date}</p>
+                                            <h2 className=" text-xs">{filter[3]?.title}</h2>
+                                            <p className="text-[10px] font-bold text-gray-500">{filter[3]?.formatted_date}</p>
                                         </div>
                                     </Link>
                                 </div>

@@ -84,10 +84,10 @@ export default function page({ params }) {
                                     : console.log('err')
                     }
                     <div className="flex gap-6">
-                        <div className=" rounded-full w-[50px] h-[50px] bg-red-700 font-bold text-white text-xl flex items-center justify-center">{data.comment.user.name[0]}</div>
+                        <div className=" rounded-full w-[50px] h-[50px] bg-red-700 font-bold text-white text-xl flex items-center justify-center">{data.comment.user?.name[0]}</div>
                         <div>
-                            <p className="font-bold">{data.comment.user.name}</p>
-                            <p>{data.comment.user.email}</p>
+                            <p className="font-bold">{data.comment.user?.name || 'تم حذف المستخدم'}</p>
+                            <p>{data.comment.user?.email}</p>
                         </div>
                     </div>
                     <div className="w-full h-[1px] bg-gray-200"></div>

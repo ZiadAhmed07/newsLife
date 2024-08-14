@@ -453,12 +453,40 @@ export default function page() {
                                         </div>
                                 }
                                 <div className="flex flex-col gap-4 col-start-2 col-end-4">
-                                    <div className="h-[300px] bg-gray-100 max-sm:h-[150px] flex items-center justify-center flex-col gap-2 ">
-                                        <p>يتم الاضافه من قبل الكاتب</p>
-                                    </div>
-                                    <div className="h-[300px] bg-gray-100 max-sm:h-[150px] flex items-center justify-center flex-col gap-2 ">
-                                        <p>يتم الاضافه من قبل الكاتب</p>
-                                    </div>
+                                    {
+                                        middleHome1.length == 0
+                                            ? <div onClick={() => { setHidden(true), setAdPositionId(4) }} className="h-[300px] bg-gray-100 max-sm:h-[150px] flex items-center justify-center flex-col gap-2 hover:opacity-50 cursor-pointer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="text-gray-500 bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                                                </svg>
+                                                <p>300X300</p>
+                                            </div>
+                                            : <div className="h-[300px] relative bg-gray-100 max-sm:h-[150px] flex items-center justify-center flex-col gap-2 ">
+                                                <p onClick={() => { deleteAds(middleHome1[0].id) }} className="bg-red-700 p-1 rounded-md text-white text-xs opacity-50 hover:opacity-100 absolute top-3 left-3 cursor-pointer">حذف</p>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-emoji-smile text-yellow-500" viewBox="0 0 16 16">
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                                    <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5" />
+                                                </svg>
+                                                <p>تم اضافه الاعلان</p>
+                                            </div>
+                                    }
+                                    {
+                                        middleHome2.length == 0
+                                            ? <div onClick={() => { setHidden(true), setAdPositionId(5) }} className="h-[300px] bg-gray-100 max-sm:h-[150px] flex items-center justify-center flex-col gap-2 hover:opacity-50 cursor-pointer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="text-gray-500 bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                                                </svg>
+                                                <p>300X300</p>
+                                            </div>
+                                            : <div className="h-[300px] relative bg-gray-100 max-sm:h-[150px] flex items-center justify-center flex-col gap-2 ">
+                                                <p onClick={() => { deleteAds(middleHome2[0].id) }} className="bg-red-700 p-1 rounded-md text-white text-xs opacity-50 hover:opacity-100 absolute top-3 left-3 cursor-pointer">حذف</p>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-emoji-smile text-yellow-500" viewBox="0 0 16 16">
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                                    <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5" />
+                                                </svg>
+                                                <p>تم اضافه الاعلان</p>
+                                            </div>
+                                    }
                                 </div>
                                 {
                                     leftBar.length == 0

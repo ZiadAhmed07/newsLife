@@ -66,10 +66,10 @@ export default function page() {
                         bg = 'bg-gray-50'
                     }
                     return (
-                        <Link href={`/dashboard/advertiseHere/${el.AdvertiseHere.id}`} key={index} className={`grid grid-cols-4 p-2 ${bg} hover:bg-gray-200 items-center`}>
-                            <p className=" text-center">{el.user.name}</p>
+                        <Link href={`/dashboard/advertiseHere/${el.AdvertiseHere?.id}`} key={index} className={`grid grid-cols-4 p-2 ${bg} hover:bg-gray-200 items-center`}>
+                            <p className=" text-center">{el.user?.name || 'تم حذف المستخدم'}</p>
                             <p className=" text-center">{el.AdvertiseHere?.phone}</p>
-                            <p className=" text-center col-start-3 col-end-5 truncate text-gray-600 px-4">{el.AdvertiseHere.message}</p>
+                            <p className=" text-center col-start-3 col-end-5 truncate text-gray-600 px-4">{el.AdvertiseHere?.message}</p>
                         </Link>
                     )
                 })

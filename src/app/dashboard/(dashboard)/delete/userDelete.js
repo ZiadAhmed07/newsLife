@@ -93,7 +93,7 @@ export default function UserDelete() {
     function deleteData(id){
         setLoader(true)
         axios({
-            url: `${apiData}/admin/forceDelete/${id}`,
+            url: `${apiData}/admin/forceDelete/user/${id}`,
             method: 'delete',
             headers: {
                 'Authorization': `Bearer ${adminData.access_token}`
@@ -105,7 +105,7 @@ export default function UserDelete() {
         }).catch((err)=>{
             setLoader(false)
             console.log(err)
-            return toast.error('حدق خطا ما ! حاول مجددا')
+            return toast.error('حدث خطا ما ! حاول مجددا')
         })
     }
 
@@ -124,7 +124,7 @@ export default function UserDelete() {
         }).catch((err)=>{
             setLoader(false)
             console.log(err)
-            return toast.error('حدق خطا ما ! حاول مجددا')
+            return toast.error('حدث خطا ما ! حاول مجددا')
         })
     }
 

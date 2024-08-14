@@ -87,10 +87,17 @@ export default function page({ params }) {
                             <h2 className="font-bold text-2xl max-md:text-xl">
                                 {data.data.title}
                             </h2>
-                            <div className="text-sm font-bold text-gray-600 flex gap-8">
+                            <div className="text-sm font-bold text-gray-600 flex gap-8 flex-wrap">
                                 <p>{data.data.formatted_date}</p>
                                 <p>by : {data.data.writer}</p>
                                 <p>{data.data?.category?.name}</p>
+                                <div className=' text-gray-600 flex text-xs font-bold gap-1 '>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                    </svg>
+                                    {data.data.news_views_count}
+                                </div>
                             </div>
                             <p>الوصف : {data.data.description}</p>
                             <div className=" rounded-md p-2 border">
@@ -130,12 +137,12 @@ export default function page({ params }) {
                             {
                                 data?.data.suggested_news?.map((e, i) => {
                                     return (
-                                        <Link href={`/dashboard/Category/${e.suggested_news?.category.id}/${e.suggested_news.id}`} key={i} className="flex gap-3 ">
-                                            <Image src={`${apiImg}/${e.suggested_news.img}`} alt="..." width={200} height={200} className="w-[200px] h-[120px]" />
+                                        <Link href={`/dashboard/Category/${e.suggested_news?.category?.id}/${e.suggested_news?.id}`} key={i} className="flex gap-3 ">
+                                            <Image src={`${apiImg}/${e.suggested_news?.img}`} alt="..." width={200} height={200} className="w-[200px] h-[120px]" />
                                             <div className="flex flex-col gap-2 justify-end">
-                                                <p>{e.suggested_news.title}</p>
-                                                <p className="font-bold text-[10px] text-gray-600">{e.suggested_news.formatted_date}</p>
-                                                <p className="text-red-700 font-bold">{e.suggested_news.category.name}</p>
+                                                <p>{e.suggested_news?.title}</p>
+                                                <p className="font-bold text-[10px] text-gray-600">{e.suggested_news?.formatted_date}</p>
+                                                <p className="text-red-700 font-bold">{e.suggested_news?.category?.name}</p>
                                             </div>
                                         </Link>
                                     )

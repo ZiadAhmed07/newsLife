@@ -14,6 +14,7 @@ export default function Header() {
     const date = (new Intl.DateTimeFormat('ar', { dateStyle: 'full' })).format(now)
 
     return (
+        <>
         <nav className="flex flex-col  shadow-xl">
             <div className="h-[60px] w-full bg-white shadow-lg text-gray-900 text-sm flex justify-between px-10 max-sm:px-2 items-center transition">
                 <div className="flex gap-10 max-sm:hidden">
@@ -53,5 +54,10 @@ export default function Header() {
                 <SliderType />
             </div>
         </nav>
+        <div className="my-6 w-">
+            <AdsHeader/>
+        </div>
+        
+         </>
     );
 }

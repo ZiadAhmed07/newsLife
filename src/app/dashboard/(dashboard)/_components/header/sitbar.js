@@ -61,7 +61,7 @@ export default function Sitbar() {
     }
 
     return (
-        <div className="w-[200px] h-screen bg-white fixed z-30 max-sm:hidden">
+        <div className="w-[200px] h-screen bg-white fixed z-30 max-sm:hidden over">
             {FunLoader()}
             <div className=" mt-[80px]">
                 <ul className="flex flex-col gap-1">

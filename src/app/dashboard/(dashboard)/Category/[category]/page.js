@@ -19,13 +19,13 @@ export default function page({ params }) {
     const [loader, setLoader] = useState(false)
     const [SearchKey, setSearchKey] = useState('')
     const [hiddenSelect, setHiddenSelect] = useState(false)
-    const [role , setRole] = useState('')
+    const [role, setRole] = useState('')
 
     useEffect(() => {
         if (getAdmin) {
             const data = JSON.parse(getAdmin)
             setAdminData(data)
-            if(data.admin.role.id == 4){
+            if (data.admin.role.id == 4) {
                 setRole('hidden')
             }
         }
@@ -66,11 +66,9 @@ export default function page({ params }) {
             )
         }
         if (data) {
-
             const filter = data.news.filter((el) => {
                 return el.status == "published"
             })
-
             const search = filter.filter((el) => {
                 if (!SearchKey) {
                     return true
@@ -106,6 +104,7 @@ export default function page({ params }) {
                         <p>عدد الاخبار : {data.news_count}</p>
                     </div>
 
+                    {/*
                     <div className={`"my-6 p-2 bg-white flex max-md:flex-col justify-between gap-4 lg:p-6 ${role}`}>
                         <div className="h-full">
                             <p className="font-bold text-red-700 text-lg">اداره الاخبار العاجله</p>
@@ -185,7 +184,7 @@ export default function page({ params }) {
                             </div>
                         </div>
                     </div>
-
+                            */}
 
                     <div className="my-6 p-6 bg-white w-full flex flex-col gap-4">
                         <div className=" flex justify-between items-center max-sm:flex-col max-sm:gap-4">
@@ -196,9 +195,16 @@ export default function page({ params }) {
                             {
                                 search.reverse().map((el, index) => {
                                     return (
-                                        <Link href={`/dashboard/Category/${params.category}/${el.id}`} key={index} className='hover:opacity-80 transition-all flex flex-col gap-2 shadow-md'>
-                                            <Image src={`${apiImg}/${el.img}`} alt="" width={390} height={200} className="max-h-[200px]"/>
-                                            <div className="flex flex-col gap-2 p-3">
+                                        <Link href={`/dashboard/Category/${params.category}/${el.id}`} key={index} className='hover:opacity-80 relative  transition-all flex flex-col gap-2 shadow-md'>
+                                            <div className=' absolute top-2 left-2 text-gray-100 flex text-xs font-bold gap-1 bg-gray-600/50'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                                </svg>
+                                                {el?.news_views_count}
+                                            </div>
+                                            <Image src={`${apiImg}/${el.img}`} alt="" width={390} height={200} className="max-h-[200px]" />
+                                            <div className="flex flex-col gap-2 p-3 ">
                                                 <p className="text-gray-500 text-xs font-bold">{el.formatted_date}</p>
                                                 <h2>{el.title}</h2>
                                                 <div className="flex gap-3 items-center">
@@ -219,7 +225,7 @@ export default function page({ params }) {
         }
     }
 
-    function funDelete(e){
+    function funDelete(e) {
         setLoader(true)
         console.log(e)
     }

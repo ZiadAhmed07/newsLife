@@ -76,7 +76,7 @@ export default function Comment() {
                                 <div key={i} className={`w-full grid grid-cols-4 ${bg} p-1`}>
                                     <p className="text-center">{el.comment.id}</p>
                                     <p className="text-center truncate">{el.comment.comment}</p>
-                                    <p className="text-center ">{el.comment.user.name}</p>
+                                    <p className="text-center ">{el.comment.user?.name}</p>
                                     <div className="text-center flex items-center justify-center gap-2">
                                         <button onClick={()=>{deleteData(el.comment.id)}} className="bg-red-700 text-white px-2 rounded-md">حذف</button>
                                         <button onClick={()=>{restData(el.comment.id)}} className="bg-sky-700 text-white px-2 rounded-md">استرجاع</button>

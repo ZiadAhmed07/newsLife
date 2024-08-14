@@ -10,44 +10,61 @@ import Link from "next/link"
 
 export default function MiddleHome2() {
 
-    const [ads , setAds] = useState()
+    const [ads, setAds] = useState()
 
-    useEffect(()=>{
+    useEffect(() => {
         axios({
-            url:`${apiData}/user/showAll/advertisement`,
-            method:'get'
-        }).then((res)=>{
+            url: `${apiData}/user/showAll/advertisement`,
+            method: 'get'
+        }).then((res) => {
             const data = res.data.data
-            const filter = data.filter((el)=>{
+            const filter = data.filter((el) => {
                 return el.position.id == 5
             })
             setAds(filter)
         })
 
-    },[])
+    }, [])
 
-    function GetADs(){
-        if(!ads || ads.length ==0){
-            return(
+
+    useEffect(() => {
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+            console.log(error.message)
+        }
+    }, [])
+
+    function GetADs() {
+        if (!ads || ads.length == 0) {
+            return (
                 <div>
-                    <Image src={adsImg} alt="..." className="w-[300px] h-[300px]" />
+                    <div className="flex justify-center w-full">
+                        <ins className="adsbygoogle w-[300px] h-[300px] bg-gray-100"
+                            style={{ display: "block" }}
+                            data-ad-client="ca-pub-8948820292282679"
+                            data-ad-slot="2037530738"
+                            data-ad-format="rspv"
+                            data-full-width-responsive="true">
+                        </ins>
+                    </div>
                 </div>
             )
         }
-        if(ads.length > 0){
+        if (ads.length > 0) {
             console.log(ads)
-            return(
+            return (
                 <Link href={ads[0].url}>
-                <Image src={`${apiImg}/${ads[0].img}`} alt='...' width={300} height={300} className="w-[300px] h-[300px]"/>
-            </Link>
+                    <Image src={`${apiImg}/${ads[0].img}`} alt='...' width={300} height={300} className="w-[300px] h-[300px]" />
+                </Link>
             )
         }
     }
 
-  return (
-    <div className="w-[300px] h-[300px]">
-        {GetADs()}
-    </div>
-  )
+    return (
+        <div className="w-[300px] h-[300px]">
+            {GetADs()}
+        </div>
+    )
 }
 

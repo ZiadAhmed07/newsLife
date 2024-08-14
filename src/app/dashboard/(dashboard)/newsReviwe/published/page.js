@@ -63,7 +63,7 @@ export default function page() {
             return (
                 <div className=" w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-3 p-4">
                     {
-                        data.reverse()?.map((e, index) => {
+                        [...data].reverse()?.map((e, index) => {
                             return (
                                 <Link href={`/dashboard/newsReviwe/${e.id}`} key={index} className='hover:opacity-80 overflow-hidden transition-all flex flex-col gap-2 shadow-md relative'>
                                     {

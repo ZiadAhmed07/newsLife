@@ -10,44 +10,70 @@ import Link from 'next/link'
 
 export default function MiddleCategory() {
 
-    const [ads , setAds] = useState()
+    const [ads, setAds] = useState()
 
-    useEffect(()=>{
+    useEffect(() => {
         axios({
-            url:`${apiData}/user/showAll/advertisement`,
-            method:'get'
-        }).then((res)=>{
+            url: `${apiData}/user/showAll/advertisement`,
+            method: 'get'
+        }).then((res) => {
             const data = res.data.data
-            const filter = data.filter((el)=>{
+            const filter = data.filter((el) => {
                 return el.position.id == 7
             })
             setAds(filter)
         })
 
-    },[])
+    }, [])
 
-    function GetADs(){
-        if(!ads || ads.length ==0){
-            return(
-                <div>
-                    <Image src={adsImg} alt="..." className="w-[970px] h-[90px]" />
+    useEffect(() => {
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+            console.log(error.message)
+        }
+    }, [])
+
+    function GetADs() {
+        if (!ads || ads.length == 0) {
+            return (
+                <div className="w-full">
+                    <div className="sm:hidden w-full h-[300px] bg-gray-100">
+                        <amp-ad width="100vw" height="300"
+                            type="adsense"
+                            data-ad-client="ca-pub-8948820292282679"
+                            data-ad-slot="7732241352"
+                            data-auto-format="rspv"
+                            data-full-width="">
+                            <div overflow=""></div>
+                        </amp-ad>
+                    </div>
+                    <div className="bg-gray-100 w-full max-w-[970px] h-[90px] overflow-hidden max-sm:hidden">
+                        <ins className="adsbygoogle"
+                            style={{ display: "block" }}
+                            data-ad-client="ca-pub-8948820292282679"
+                            data-ad-slot="7732241352"
+                            data-ad-format="rspv"
+                            data-full-width-responsive="true">
+                        </ins>
+                    </div>
                 </div>
             )
         }
-        if(ads.length > 0){
+        if (ads.length > 0) {
             console.log(ads)
-            return(
+            return (
                 <Link href={ads[0].url}>
-                <Image src={`${apiImg}/${ads[0].img}`} alt='...' width={970} height={90} className="w-[970px] h-[90px]"/>
-            </Link>
+                    <Image src={`${apiImg}/${ads[0].img}`} alt='...' width={970} height={90} className="w-[970px] h-[90px]" />
+                </Link>
             )
         }
     }
 
-  return (
-    <div>
-        {GetADs()}
-    </div>
-  )
+    return (
+        <div>
+            {GetADs()}
+        </div>
+    )
 }
 

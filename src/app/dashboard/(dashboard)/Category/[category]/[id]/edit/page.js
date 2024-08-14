@@ -28,6 +28,7 @@ export default function page({ params }) {
     const [hidden, setHidden] = useState('')
     const router = useRouter()
     const [CheckData, setCheckData] = useState(false)
+    const [suggestedNews, setSuggestedNews] = useState([]);
 
     const [data, setData] = useState({
         title: '',
@@ -88,7 +89,7 @@ export default function page({ params }) {
                     event_date: data.event_date,
                     videoUrl:data.videoUrl,
                     videoLabel:data.videoLabel,
-                    suggestedNews_ids:data.suggestedNews,
+                    suggestedNews_ids:data.suggested_news,
                     keyWords:data.keyWords
 
                 })
@@ -203,6 +204,17 @@ export default function page({ params }) {
         }
     }
 
+    function SasuggestedNews_ids() {
+        const handleChange = (e) => {
+            const value = e?.map((e)=>e.value)
+            setSuggestedNews(e);
+            setData(prev => ({
+                ...prev, suggestedNews_ids:value
+            }))
+        };
+        return <Select options={SelectDataNews} isMulti value={suggestedNews} onChange={handleChange }/>;
+    }
+
     function FunsetData() {
         if (!CheckData) {
             return (
@@ -244,13 +256,22 @@ export default function page({ params }) {
                             </div>
                             <input type='file' placeholder="" onChange={(e) => { setData(p => ({ ...p, img: e.target.files[0] })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>
+                        {/*
                         <div>
                             <label>تاريخ النشر</label><br />
                             <input type='date' value={data.event_date} required placeholder="ادخل الجزء الثالث من المقال" onChange={(e) => { setData(p => ({ ...p, event_date: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>
+                        */}
                         <div>
                             <label>الاخبار المقترحه</label><br />
-                            <Select options={SelectDataNews} isMulti onChange={(e) => { setData(p => ({ ...p, suggestedNews_ids: e.value })) }}/>
+                            {SasuggestedNews_ids()}
+                        </div>
+                        <div className=' border p-2 flex flex-col gap-1 text-xs -mt-4'>
+                            {
+                                data.suggestedNews_ids?.map((e , i)=>{
+                                    return <p key={i}>{e.suggested_news?.title}</p>
+                                })
+                            }
                         </div>
                         <div>
                             <label>فيديو خاص بالخبر</label><br />

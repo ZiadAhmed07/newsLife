@@ -79,13 +79,13 @@ export default function Page() {
                                                             ? <p className="absolute bg-black/60 text-white text-sm py-1 px-10 top-[10px] -left-[30px] -rotate-45">مرفوض</p>
                                                             : console.log('err')
                                             }
-                                        <div className="p-1 border rounded-md"> {el.comment.comment}</div>
+                                        <div className="p-1 border rounded-md"> {el.comment?.comment}</div>
                                         <div className="bg-gray-100 p-1 truncate">{el.comment.news?.title}</div>
                                         <div className="flex gap-4">
-                                            <div className="w-10 h-10 rounded-full bg-red-700 text-white flex justify-center items-center font-bold">{el.comment.user.name[0]}</div>
+                                            <div className="w-10 h-10 rounded-full bg-red-700 text-white flex justify-center items-center font-bold">{el.comment.user?.name[0]}</div>
                                             <div>
-                                                <p>{el.comment.user.name}</p>
-                                                <p>{el.comment.user.email}</p>
+                                                <p>{el.comment.user?.name || "تم حذف المستخدم"}</p>
+                                                <p>{el.comment.user?.email}</p>
                                             </div>
                                         </div>
                                     </Link>

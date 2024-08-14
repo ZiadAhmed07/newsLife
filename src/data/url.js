@@ -1,3 +1,3 @@
-export const Domin = 'https://news.zaha-script.net/'
-export const apiData = 'https://news.zaha-script.net/api'
-export const apiImg = 'https://news.zaha-script.net/public'
+export const Domin = 'https://zaha.alwatanynews.com/'
+export const apiData = 'https://zaha.alwatanynews.com/api'
+export const apiImg = 'https://zaha.alwatanynews.com/public'

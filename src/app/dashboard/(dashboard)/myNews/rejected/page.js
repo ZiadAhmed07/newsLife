@@ -64,10 +64,10 @@ export default function page() {
             return (
                 <div className=" w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-3 p-4">
                     {
-                        data.reverse()?.map((e , index) => {
+                        [...data].reverse()?.map((e , index) => {
                             return (
                                 <Link href={`/dashboard/myNews/${e.id}`} key={index} className='hover:opacity-80 transition-all flex flex-col gap-2 shadow-md relative'>
-                                    <div className=" absolute text-white bg-gray-600/60  top-0 right-0 z-10 py-1 px-3">{e.category.name}</div>
+                                    <div className=" absolute text-white bg-gray-600/60  top-0 right-0 z-10 py-1 px-3">{e.category?.name}</div>
                                     <Image src={`${apiImg}/${e.img}`} alt="" width={390} height={200} />
                                     <div className="flex flex-col gap-2 p-3">
                                         <p className="text-gray-500 text-xs">{e.formatted_date}</p>

@@ -76,10 +76,10 @@ export default function page({ params }) {
             return (
                 <div className="flex flex-col gap-6">
                     <div className="flex gap-6">
-                        <div className=" rounded-full w-[50px] h-[50px] bg-red-700 font-bold text-white text-xl flex items-center justify-center">{data.user.name[0]}</div>
+                        <div className=" rounded-full w-[50px] h-[50px] bg-red-700 font-bold text-white text-xl flex items-center justify-center">{data.user?.name[0]}</div>
                         <div>
-                            <p className="font-bold">{data.user.name}</p>
-                            <p>{data.user.email}</p>
+                            <p className="font-bold">{data.user?.name || 'تم حذف المستخدم'}</p>
+                            <p>{data.user?.email}</p>
                         </div>
                     </div>
                     <div className="w-full h-[1px] bg-gray-200"></div>

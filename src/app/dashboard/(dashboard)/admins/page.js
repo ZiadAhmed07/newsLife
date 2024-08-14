@@ -70,16 +70,16 @@ export default function page({params}) {
                     }
 
                     return (
-                        <Link href={`/dashboard/admins/${el.author.id}`} key={index} className={`grid relative grid-cols-5 p-2 ${bg} hover:bg-gray-200 items-center`}>
+                        <Link href={`/dashboard/admins/${el.author?.id}`} key={index} className={`grid relative grid-cols-5 p-2 ${bg} hover:bg-gray-200 items-center`}>
                             {
                                 el.author.status == "active" 
                                     ? <p className=" absolute right-3 rounded-full w-3 h-3 bg-green-500"></p>
                                     : <p className=" absolute right-3 rounded-full w-3 h-3 bg-black"></p>
                             }
-                            <p className=" text-center">{el.author.name}</p>
-                            <p className=" text-center">{el.author.role.name}</p>
-                            <p className=" text-center">{el.news.length}</p>
-                            <p className=" text-center col-start-4 col-end-6 truncate text-gray-600 px-4">{el.author.email}</p>
+                            <p className=" text-center">{el.author?.name}</p>
+                            <p className=" text-center">{el.author?.role?.name}</p>
+                            <p className=" text-center">{el.news?.length}</p>
+                            <p className=" text-center col-start-4 col-end-6 truncate text-gray-600 px-4">{el.author?.email}</p>
                         </Link>
                     )
                 })

@@ -29,13 +29,13 @@ export default async function page({ params }) {
         <>
         <div className="w-full min-h-screen flex gap-10 justify-between">
             <div className="max-lg:hidden">
-                
+            <AdsRightBar/>
             </div>
 
             <News params={params}/>
 
             <div className="max-md:hidden">
-                
+            <AdsLeftBar/>
             </div>
         </div>
         </>

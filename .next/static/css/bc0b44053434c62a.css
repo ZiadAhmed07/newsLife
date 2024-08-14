@@ -1,0 +1,1 @@
+.hamburger{cursor:pointer}.hamburger input{display:none}.hamburger svg{height:3em;transition:transform .6s cubic-bezier(.4,0,.2,1)}.line{fill:none;stroke:#d8d8d8;stroke-linecap:round;stroke-linejoin:round;stroke-width:3;transition:stroke-dasharray .6s cubic-bezier(.4,0,.2,1),stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)}.line-top-bottom{stroke-dasharray:12 63}

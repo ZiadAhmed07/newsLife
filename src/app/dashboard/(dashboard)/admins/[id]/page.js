@@ -69,17 +69,17 @@ export default function Admin({ params }) {
                             <p className="">المعلومات الاساسيه</p>
                         </div>
                         <div className="border p-6 bg-white flex flex-col gap-4">
-                            <p>الاسم : {data.auther.name}</p>
-                            <p>الوظيفه : {data.auther.role.name}</p>
-                            <p>البريد : {data.auther.email}</p>
+                            <p>الاسم : {data.auther?.name}</p>
+                            <p>الوظيفه : {data.auther?.role.name}</p>
+                            <p>البريد : {data.auther?.email}</p>
                         </div>
                     </div>
 
                     {
-                        data.news.length == 0
+                        data?.news?.length == 0
                             ? <div className=' min-w-[500px]'>
                                 <div className="p-2 px-4 border w-full flex justify-between bg-white border-r-8 border-r-red-700 items-center">
-                                    <p className="">اخبار {data.auther.name}</p>
+                                    <p className="">اخبار {data.auther?.name}</p>
                                 </div>
                                 <div className=" flex items-center justify-center bg-white border h-[100px] py-3 font-bold text-gray-700 border-b">
                                     لايوجد اخبار
@@ -87,7 +87,7 @@ export default function Admin({ params }) {
                             </div>
                             : <div className=' min-w-[500px]'>
                                 <div className="p-2 px-4 border w-full flex justify-between bg-white border-r-8 border-r-red-700 items-center">
-                                    <p className="">اخبار {data.auther.name}</p>
+                                    <p className="">اخبار {data.auther?.name}</p>
                                 </div>
                                 <div className="grid grid-cols-4 bg-white border justify-center py-3 font-bold text-gray-700 border-b">
                                     <p className=" text-center col-start-1 col-end-4">الخبر</p>
