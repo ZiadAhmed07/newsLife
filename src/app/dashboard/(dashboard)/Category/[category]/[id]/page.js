@@ -145,10 +145,6 @@ export default function page({ params }) {
                                 </svg>
                             </button>
                         </div>
-                        <div className="text-center text-sm text-red-700 mt-2">
-                            <p>اذا تم تعديل الخبر فسوف يسجل الخبر باسم من قام بالتعديل وليس من كتب الخبر</p>
-                            <p>يجب عليك العوده الى كاتب الخبر  في حاله التعديل حتى يظل الخبر باسمه</p>
-                        </div>
                     </div>
                 </div>
             )

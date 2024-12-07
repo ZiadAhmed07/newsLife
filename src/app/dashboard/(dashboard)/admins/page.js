@@ -78,7 +78,7 @@ export default function page({params}) {
                             }
                             <p className=" text-center">{el.author?.name}</p>
                             <p className=" text-center">{el.author?.role?.name}</p>
-                            <p className=" text-center">{el.news?.length}</p>
+                            <p className=" text-center">{el.news_count}</p>
                             <p className=" text-center col-start-4 col-end-6 truncate text-gray-600 px-4">{el.author?.email}</p>
                         </Link>
                     )

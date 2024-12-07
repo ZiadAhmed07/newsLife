@@ -47,6 +47,7 @@ export default function page({ params }) {
         videoUrl:'',
         videoLabel:'',
         suggestedNews_ids:'',
+        admin_id : ''
     })
 
     useEffect(() => {
@@ -90,8 +91,8 @@ export default function page({ params }) {
                     videoUrl:data.videoUrl,
                     videoLabel:data.videoLabel,
                     suggestedNews_ids:data.suggested_news,
-                    keyWords:data.keyWords
-
+                    keyWords:data.keyWords,
+                    admin_id : data.admin.id
                 })
                 setTags(data.keyWords)
                 setCategory(data.category)
@@ -150,7 +151,7 @@ export default function page({ params }) {
                 ...prev, keyWords: e
             }))
         };
-        return <TagsInput value={tags || ['']} required onChange={handleChange} />;
+        return <TagsInput value={tags || ['']} onChange={handleChange} />;
     }
 
     function postData(e) {
@@ -171,7 +172,53 @@ export default function page({ params }) {
             description:data.description,
             videoLabel:data.videoLabel,
             videoUrl:data.videoUrl,
-            suggested_news_ids: JSON.stringify(data.suggestedNews_ids)
+            suggested_news_ids: JSON.stringify(data.suggestedNews_ids),
+            admin_id : data.admin_id
+        }
+
+        if(data.title && data.writer && data.part1 && data.keyWords && data.description){
+        setLoader(true)
+        axios({
+            url: `${apiData}/admin/update/news/${params.id}`,
+            method: 'post',
+            headers: {
+                'Authorization': `Bearer ${adminData.access_token}`,
+                'Content-Type': 'multipart/form-data',
+            },
+            data: rejData,
+        }).then((res) => {
+            setLoader(false)
+            router.replace(`/dashboard/myNews/${params.id}`)
+            return toast.success('تم تعديل الخبر بنجاح')
+        }).catch((err) => {
+            console.log(err)
+            setLoader(false)
+            return toast.error('حدث خطا ما! حاول مجددا')
+        })}else{
+            return toast.warn('يجب اكمال البيانات المفقوده اولا')
+        }
+    }
+
+    function SaveData(e) {
+        e.preventDefault()
+        const rejData = {
+            title:data.title,
+            writer:data.writer,
+            url:data.url,
+            img:data.img,
+            part1:data.part1,
+            part2:data.part2,
+            part3:data.part3,
+            category_id:data.category_id,
+            'keyWords[]':data.keyWords,
+            status:'pending',
+            event_date:data.event_date,
+            adsenseCode:data.adsenseCode,
+            description:data.description,
+            videoLabel:data.videoLabel,
+            videoUrl:data.videoUrl,
+            suggested_news_ids: JSON.stringify(data.suggestedNews_ids),
+            admin_id : data.admin_id
         }
 
         setLoader(true)
@@ -231,11 +278,11 @@ export default function page({ params }) {
                     <div className="flex flex-col gap-4">
                         <div>
                             <label>عنوان الخبر</label><br />
-                            <input type="text" required value={data.title} onChange={(e) => { setData(p => ({ ...p, title: e.target.value })) }} placeholder="ادخل عنوان الخبر" className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                            <input type="text"  value={data.title} onChange={(e) => { setData(p => ({ ...p, title: e.target.value })) }} placeholder="ادخل عنوان الخبر" className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>
                         <div>
                             <label>الوصف</label><br />
-                            <input type="text" required value={data.description} onChange={(e) => { setData(p => ({ ...p, description: e.target.value })) }} placeholder="ادخل وصف الخبر  " className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                            <input type="text" value={data.description} onChange={(e) => { setData(p => ({ ...p, description: e.target.value })) }} placeholder="ادخل وصف الخبر  " className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>
                         <div>
                             <div className='flex justify-between'>
@@ -246,7 +293,7 @@ export default function page({ params }) {
                         </div>
                         <div>
                             <label>الكاتب</label><br />
-                            <input type="text" value={data.writer } required placeholder="ادخل اسم كاتب المقال" onChange={(e) => { setData(p => ({ ...p, writer: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                            <input type="text" value={data.writer }  placeholder="ادخل اسم كاتب المقال" onChange={(e) => { setData(p => ({ ...p, writer: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>
                         <div className='w-full h-[1px] bg-red-700 my-3'></div>
                         <div>
@@ -258,7 +305,7 @@ export default function page({ params }) {
                         </div>
                         {/*<div>
                             <label>تاريخ النشر</label><br />
-                            <input type='date' value={data.event_date} required placeholder="ادخل الجزء الثالث من المقال" onChange={(e) => { setData(p => ({ ...p, event_date: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
+                            <input type='date' value={data.event_date}  placeholder="ادخل الجزء الثالث من المقال" onChange={(e) => { setData(p => ({ ...p, event_date: e.target.value })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>*/}
                         <div>
                             <label>الاخبار المقترحه</label><br />
@@ -282,7 +329,7 @@ export default function page({ params }) {
                         <div className='w-full h-[1px] bg-red-700 my-3'></div>
                         <div>
                             <label> المقال</label><br />
-                            <QuillEditor value={data.part1} required onChange={(e) => { setData(p => ({ ...p, part1: e })) }} />
+                            <QuillEditor value={data.part1}  onChange={(e) => { setData(p => ({ ...p, part1: e })) }} />
                         </div>
 
                         <div>
@@ -291,7 +338,8 @@ export default function page({ params }) {
                         </div>
                     </div>
                     <div className=" flex gap-6 flex-col sm:flex-row">
-                        <input type='submit' value={'تعديل خبر جديد'} className=" text-white bg-red-700 p-2 px-6 cursor-pointer hover:bg-red-800 rounded-lg" />
+                        <input type='submit' value={' نشر الخبر '} className=" text-white bg-red-700 p-2 px-6 cursor-pointer hover:bg-red-800 rounded-lg" />
+                        <button onClick={(e)=>{SaveData(e)}}  className=" text-white bg-red-700 p-2 px-6 cursor-pointer hover:bg-red-800 rounded-lg">حفظ في مسوده</button>
                     </div>
                 </form>
             )

@@ -5,9 +5,9 @@ import News from "./news";
 
 
 async function getData(params) {
-    const res = await fetch(`${apiData}/user/show/news/${params.id}`)
+    const res = await fetch(`${apiData}/user/show/news/${params.id}`,{cache: 'no-store'})
     if (!res.ok) {
-      throw new Error('Failed to fetch data')
+      throw new Error('تاكد من الاتصال بالانترنت')
     }
     return res.json()
   }
@@ -25,6 +25,7 @@ export async function generateMetadata({params}){
 export default async function page({ params }) {
 
     const data = await getData(params)
+
     return (
         <>
         <div className="w-full min-h-screen flex gap-10 justify-between">
@@ -32,7 +33,7 @@ export default async function page({ params }) {
             <AdsRightBar/>
             </div>
 
-            <News params={params}/>
+            <News getData={data}/>
 
             <div className="max-md:hidden">
             <AdsLeftBar/>

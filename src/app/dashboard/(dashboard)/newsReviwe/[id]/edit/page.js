@@ -47,6 +47,7 @@ export default function page({ params }) {
         videoUrl:'',
         videoLabel:'',
         suggestedNews_ids:'',
+        admin_id:''
     })
 
     useEffect(() => {
@@ -77,7 +78,7 @@ export default function page({ params }) {
                 setData({
                     title: data.title,
                     description : data.description,
-                    category_id: data.category.id,
+                    category_id: data.category?.id,
                     writer: data.writer,
                     img: data.img,
                     adsenseCode:data.adsenseCode,
@@ -90,8 +91,8 @@ export default function page({ params }) {
                     videoUrl:data.videoUrl,
                     videoLabel:data.videoLabel,
                     suggestedNews_ids:data.suggested_news,
-                    keyWords:data.keyWords
-
+                    keyWords:data.keyWords,
+                    admin_id:data.admin.id
                 })
                 setTags(data.keyWords)
                 setCategory(data.category)
@@ -171,7 +172,8 @@ export default function page({ params }) {
             description:data.description,
             videoLabel:data.videoLabel,
             videoUrl:data.videoUrl,
-            suggested_news_ids: JSON.stringify(data.suggestedNews_ids)
+            suggested_news_ids: JSON.stringify(data.suggestedNews_ids),
+            admin_id : data.admin_id
         }
         console.log(rejData)
         setLoader(true)
@@ -241,7 +243,7 @@ export default function page({ params }) {
                         <div>
                             <div className='flex justify-between'>
                                 <label>القسم</label><br />
-                                <p>{category.name}</p>
+                                <p>{category?.name}</p>
                             </div>
                             <Select options={SelectData} onChange={(e) => { setData(p => ({ ...p, category_id: e.value })) }} />
                         </div>
@@ -253,7 +255,7 @@ export default function page({ params }) {
                         <div>
                             <div className='flex justify-between'>
                             <label>صوره الخبر</label><br />
-                            <Image required src={`${apiImg}/${data.img}`} alt='...' width={100} height={100} className='w-14 h-10'/>
+                            <Image src={`${apiImg}/${data.img}`} alt='...' width={100} height={100} className='w-14 h-10'/>
                             </div>
                             <input type='file' placeholder="" onChange={(e) => { setData(p => ({ ...p, img: e.target.files[0] })) }} className="w-full h-10 text-sm rounded-lg p-2 border-gray-200 border focus:border-[2px] outline-none" />
                         </div>
@@ -267,7 +269,7 @@ export default function page({ params }) {
                         </div>
                         <div className=' border p-2 flex flex-col gap-1 text-xs -mt-4'>
                             {
-                                data.suggestedNews_ids?.map((e , i)=>{
+                                data?.suggestedNews_ids?.map((e , i)=>{
                                     return <p key={i}>{e.suggested_news?.title}</p>
                                 })
                             }

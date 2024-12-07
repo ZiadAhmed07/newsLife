@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST='{"app\\\\dashboard\\\\(dashboard)\\\\_components\\\\EditTextairya\\\\textarya.js -> quill":{"id":5145,"files":["static/chunks/5145.123795dc6562688c.js"]},"app\\\\dashboard\\\\(dashboard)\\\\addNews\\\\textarya.js -> quill":{"id":5145,"files":["static/chunks/5145.123795dc6562688c.js"]}}';

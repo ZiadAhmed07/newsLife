@@ -47,6 +47,7 @@ export default function page({ params }) {
         videoUrl:'',
         videoLabel:'',
         suggestedNews_ids:'',
+        admin_id : ""
     })
 
     useEffect(() => {
@@ -77,7 +78,7 @@ export default function page({ params }) {
                 setData({
                     title: data.title,
                     description : data.description,
-                    category_id: data.category.id,
+                    category_id: data.category?.id,
                     writer: data.writer,
                     img: data.img,
                     adsenseCode:data.adsenseCode,
@@ -90,8 +91,8 @@ export default function page({ params }) {
                     videoUrl:data.videoUrl,
                     videoLabel:data.videoLabel,
                     suggestedNews_ids:data.suggested_news,
-                    keyWords:data.keyWords
-
+                    keyWords:data.keyWords,
+                    admin_id : data.admin.id
                 })
                 setTags(data.keyWords)
                 setCategory(data.category)
@@ -171,7 +172,8 @@ export default function page({ params }) {
             description:data.description,
             videoLabel:data.videoLabel,
             videoUrl:data.videoUrl,
-            suggested_news_ids: JSON.stringify(data.suggestedNews_ids)
+            suggested_news_ids: JSON.stringify(data.suggestedNews_ids),
+            admin_id : data.admin_id
         }
 
         setLoader(true)

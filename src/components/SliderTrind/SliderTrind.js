@@ -7,18 +7,9 @@ import axios from 'axios';
 import { apiData } from '@/data/url';
 import Link from 'next/link'
 
-export default function SliderTrind() {
+export default function SliderTrind({getSliderTrind}) {
 
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    axios({
-      url: `${apiData}/user/showAll/TNews`,
-      method: 'get',
-    }).then((res) => {
-      setData(res.data.data)
-    })
-  }, [])
+  const data = getSliderTrind.data
 
   return (
     <>
@@ -38,8 +29,8 @@ export default function SliderTrind() {
           data?.map((el, i) => {
             return (
               <SwiperSlide key={i} className='flex text-center py-[10px] text-sm w-full truncate'>
-                <Link href={`/category${el.news?.category?.id}/${el.news?.id}`}>
-                  {el.news?.title}
+                <Link href={`/category${el?.category_id}/${el?.id}`}>
+                  {el?.title}
                 </Link>
               </SwiperSlide>
             )

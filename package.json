@@ -1,4 +1,3 @@
-
 {
   "name": "news2",
   "version": "0.1.0",
@@ -6,9 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
-    "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-basic-styles": "^42.0.2",
@@ -25,14 +23,19 @@
     "@ckeditor/ckeditor5-typing": "^42.0.2",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "compressorjs": "^1.2.1",
     "cookies-next": "^4.2.1",
+    "draft-js": "^0.11.7",
     "framer-motion": "^11.3.17",
     "jquery": "^3.7.1",
     "next": "14.2.5",
     "next-sitemap": "^4.2.3",
+    "nextjs-google-analytics": "^2.3.7",
     "nextjs-toploader": "^1.6.12",
     "popper.js": "^1.16.1",
     "quill": "^2.0.2",
+    "quill-image-resize-module": "^3.0.0",
+    "quill-image-resize-module-react": "^3.0.0",
     "react": "^18",
     "react-adsense": "^0.1.0",
     "react-dom": "^18",
@@ -42,9 +45,12 @@
     "react-share": "^5.1.0",
     "react-tagsinput": "^3.20.3",
     "react-toastify": "^10.0.5",
+    "react-trix": "^0.10.2",
     "sharp": "^0.33.4",
+    "simditor": "^2.3.28",
     "summernote": "^0.8.20",
-    "swiper": "^11.1.5"
+    "swiper": "^11.1.5",
+    "trix": "^2.1.5"
   },
   "devDependencies": {
     "postcss": "^8",

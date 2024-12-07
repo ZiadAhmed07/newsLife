@@ -7,9 +7,21 @@ import ads from '/public/image/ads.WebP'
 import SliderType from "../SliderType/SliderType";
 import Time from "../time/time";
 import AdsHeader from "../ads/adsHeader";
+import { apiData } from "@/data/url";
 
-export default function Header() {
 
+async function getData() {
+    const res = await fetch(`${apiData}/user/showAll/newCategory`)
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
+    return res.json()
+  }
+
+
+export default async function Header() {
+
+    const data = await getData()
     const now = new Date()
     const date = (new Intl.DateTimeFormat('ar', { dateStyle: 'full' })).format(now)
 
@@ -39,7 +51,7 @@ export default function Header() {
                     <Time />
                 </div>
 
-                <div className="flex justify-between w-full items-center sm:hidden px-1">
+                <div className="flex justify-between w-full items-center md:hidden px-1">
                     <h1 className="font-bold text-[25px]">الوطنى <span className="text-red-700 text-[20px]">نيوز</span></h1>
                     <ListButton />
                 </div>
@@ -47,17 +59,14 @@ export default function Header() {
             <div className="flex items-center px-6 gap-4 max-lg:flex-col ">
                 <Image src={Logo} alt="..." width={400} className='w-[350px] -z-10 my-2'/>
 
-                <AdsHeader/>
+               <AdsHeader/>
 
             </div>
             <div className="px-6">
-                <SliderType />
+                <SliderType SliderType={data}/>
             </div>
         </nav>
-        <div className="my-6 w-">
-            <AdsHeader/>
-        </div>
-        
+
          </>
     );
 }

@@ -19,7 +19,7 @@ export default function ListButton() {
 
     useEffect(() => {
         axios({
-            url: `${apiData}/user/showAll/category`,
+            url: `${apiData}/user/showAll/newCategory`,
             method: 'get',
         }).then((res) => {
             setData(res.data.data)

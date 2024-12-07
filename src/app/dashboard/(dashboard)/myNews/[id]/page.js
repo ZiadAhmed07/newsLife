@@ -39,7 +39,6 @@ export default function page({ params }) {
                     'Authorization': `Bearer ${adminData.access_token}`
                 }
             }).then((res) => {
-                console.log(res.data)
                 setData(res.data)
             })
         }

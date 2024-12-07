@@ -10,19 +10,10 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function SliderType() {
+export default function SliderType({SliderType}) {
 
-  const [data, setData] = useState([])
+  const data = SliderType.data
   const pathName = usePathname()
-
-  useEffect(() => {
-    axios({
-      url: `${apiData}/user/showAll/category`,
-      method: 'get',
-    }).then((res) => {
-      setData(res.data.data)
-    })
-  }, [])
 
   function HoemLink() {
     if (pathName == '/') {

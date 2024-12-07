@@ -48,7 +48,7 @@ export default function page() {
     function getCategory() {
         if (adminData) {
             axios({
-                url: `${apiData}/admin/showAll/category`,
+                url: `${apiData}/admin/showAll/categories`,
                 method: 'get',
                 headers: {
                     'Authorization': `Bearer ${adminData.access_token}`

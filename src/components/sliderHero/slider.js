@@ -6,30 +6,20 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
 import 'swiper/css/effect-cards';
 import { EffectCards, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
-import axios from 'axios';
 import { apiData, apiImg } from '@/data/url';
-import Loader from '../loader/loader';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
-export default function ShapeSlider() {
 
-    const [data, setData] = useState()
+export default function ShapeSlider({slider}) {
 
-    useEffect(() => {
-        axios({
-            url: `${apiData}/user/showAll/category`,
-            method: 'get',
-        }).then((res) => {
-            const data = res.data.data
-            setData(data)
-        })
-    }, [])
+    const data = slider.data
 
-    function slider() {
+    function Slider() {
         if (!data) {
             return (
                 <Swiper
@@ -60,23 +50,6 @@ export default function ShapeSlider() {
         }
 
         if (data) {
-            console.log(data)
-            const News = data.map((e) => {
-                return e.news
-            })
-            const filter = News.map((e) => {
-                const map = e?.filter((e) => {
-                    return e.status == "published"
-                })
-                return map
-            })
-            const rev = filter.map((e) => {
-                return [...e].reverse()
-            })
-            const res = rev.map((e) => {
-                return e[0]
-            })
-            console.log(res)
             return (
                 <Swiper
                     effect={'cards'}
@@ -89,7 +62,7 @@ export default function ShapeSlider() {
                     className='w-[88%] h-[88%]'
                 >
                     {
-                        res.map((el, index) => {
+                        data.map((el, index) => {
                             if(el){
                                 return (
                                     <SwiperSlide key={index} className='rounded-[16px]  shadow-2xl'>
@@ -97,9 +70,9 @@ export default function ShapeSlider() {
                                             <div className='absolute w-full h-full flex flex-col justify-center p-6 gap-4 bg-gray-950/50'>
                                                 <h2 className='text-[30px] max-sm:text-[20px] font-bold text-white max-sm:w-[100%] w-[70%]'>{el?.title}</h2>
                                                 <p className='text-[20px] max-sm:text-[16px] text-white max-sm:w-[100%] w-[70%] h-[60px] max-sm:h-[46px] overflow-hidden'>{el?.description}</p>
-                                                <Link href={`/category/${data[index].id}/${el?.id}?news=${el?.title.replace(/\s+/g, '-')}`} className='px-8 py-2 font-bold bg-red-700 text-white w-fit rounded-md hover:shadow-xl hover:bg-red-800'>التفاصيل</Link>
+                                                <Link href={`/category/${el.category_id}/${el?.news_id}?news=${el?.title.replace(/\s+/g, '-')}`} className='px-8 py-2 font-bold bg-red-700 text-white w-fit rounded-md hover:shadow-xl hover:bg-red-800'>التفاصيل</Link>
                                             </div>
-                                            <Image src={`${apiImg}/${el?.img}`} alt='...' className='w-full h-full' width={1000} height={1000} />
+                                            <Image src={`${apiImg}/${el?.img}`} quality={30} alt='...' className='w-full h-full' width={500} height={300} quality={50}/>
                                         </div>
                                     </SwiperSlide>
                                 )
@@ -114,7 +87,7 @@ export default function ShapeSlider() {
     return (
         <>
             <div className='w-full h-screen max-sm:h-[400px] max-md:h-[600px] max-h-[900px] relative overflow-hidden p-4'>
-                {slider()}
+                {Slider()}
             </div>
         </>
     );

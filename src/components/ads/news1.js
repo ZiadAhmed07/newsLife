@@ -8,7 +8,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 
-export default function MiddleHome1() {
+export default function News1() {
 
     const [ads, setAds] = useState()
 
@@ -19,7 +19,7 @@ export default function MiddleHome1() {
         }).then((res) => {
             const data = res.data.data
             const filter = data.filter((el) => {
-                return el.position.id == 4
+                return el.position.id == 8
             })
             setAds(filter)
         })
@@ -38,10 +38,27 @@ export default function MiddleHome1() {
     function GetADs() {
         if (!ads || ads.length == 0) {
             return (
-                <div className="flex justify-center w-full">
-                    <Link href={'/ads'}>
-                        <Image src={adsImg} alt='...' width={300} height={300} className="w-[300px] h-[300px]" />
-                    </Link>
+
+                <div className="flex justify-center ">
+                    <div className="max-sm:hidden bg-gray-100 h-[300px] w-[300px]">
+                        <ins className="adsbygoogle "
+                            style={{ display: "block" }}
+                            data-ad-client="ca-pub-8948820292282679"
+                            data-ad-slot="5236804482"
+                            data-ad-format="rspv"
+                            data-full-width-responsive="true">
+                        </ins>
+                    </div>
+                    <div className="sm:hidden bg-gray-100 w-full h-[300px]">
+                        <amp-ad width="100vw" height="300"
+                            type="adsense"
+                            data-ad-client="ca-pub-8948820292282679"
+                            data-ad-slot="5236804482"
+                            data-auto-format="rspv"
+                            data-full-width="">
+                            <div overflow=""></div>
+                        </amp-ad>
+                    </div>
                 </div>
             )
         }

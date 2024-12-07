@@ -61,7 +61,7 @@ export default function Admin({ params }) {
                     </div>
                     <div className=" relative overflow-hidden">
                         {
-                            data.auther.status == "active"
+                            data.auther?.status == "active"
                                 ? <p className=" absolute top-[20px] -left-[60px] rounded-md  bg-green-500/60 px-20 -rotate-45 text-bold text-white">مفعل</p>
                                 : <p className="absolute top-[20px] -left-[60px] rounded-md  bg-black/60 px-20 -rotate-45 text-bold text-white">غير مفعل</p>
                         }
@@ -85,7 +85,7 @@ export default function Admin({ params }) {
                                     لايوجد اخبار
                                 </div>
                             </div>
-                            : <div className=' min-w-[500px]'>
+                            : <div className=' min-w-[500px] max-h-[500px] overflow-auto'>
                                 <div className="p-2 px-4 border w-full flex justify-between bg-white border-r-8 border-r-red-700 items-center">
                                     <p className="">اخبار {data.auther?.name}</p>
                                 </div>
@@ -93,30 +93,33 @@ export default function Admin({ params }) {
                                     <p className=" text-center col-start-1 col-end-4">الخبر</p>
                                     <p className=" text-center ">القسم</p>
                                 </div>
-                                {
-                                    data.news?.map((el, index) => {
-                                        let bg = 'bg-gray-50'
-                                        if (index % 2 === 0) {
-                                            bg = 'bg-gray-100'
-                                        } else {
-                                            bg = 'bg-gray-50'
-                                        }
+                                <div >
+                                    {
+                                        data.news?.map((el, index) => {
+                                            let bg = 'bg-gray-50'
+                                            if (index % 2 === 0) {
+                                                bg = 'bg-gray-100'
+                                            } else {
+                                                bg = 'bg-gray-50'
+                                            }
 
-                                        return (
-                                            <Link href={`/dashboard/newsReviwe/${el.id}`} key={index} className={`grid grid-cols-4 p-2 ${bg} hover:bg-gray-200 items-center`}>
-                                                <p className=" text-center col-start-1 col-end-4 truncate">{el.title}</p>
-                                                <p className=" text-center">{el.category?.name}</p>
-                                            </Link>
-                                        )
-                                    })
-                                }
+                                            return (
+                                                <Link href={`/dashboard/newsReviwe/${el.news_id}`} key={index} className={`grid grid-cols-4 p-2 ${bg} hover:bg-gray-200 items-center`}>
+                                                    <p className=" text-center col-start-1 col-end-4 truncate">{el.title}</p>
+                                                    <p className=" text-center">{el.category_name}</p>
+                                                </Link>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                     }
 
-                    <div className=" bg-white p-6 flex justify-center gap-6">
+                    <div className=" bg-white p-6 flex justify-center gap-6 flex-wrap">
                         <button onClick={NotActive} className=" rounded-lg px-6 py-2 bg-gray-600 text-white hover:bg-gray-500">الغاء التفعيل</button>
                         <button onClick={Active} className=" rounded-lg px-6 py-2 bg-gray-600 text-white hover:bg-gray-500"> تفعيل</button>
                         <button onClick={() => { setDeleteHidden(true) }} className=" rounded-lg px-6 py-2 bg-gray-600 text-white hover:bg-red-500">حذف</button>
+                        <Link href={`/dashboard/admins/${params.id}/edit`} className=" rounded-lg px-6 py-2 bg-gray-600 text-white hover:bg-blue-500">تعديل</Link>
                     </div>
                 </div>
             )

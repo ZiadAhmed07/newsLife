@@ -1,49 +1,56 @@
 'use client'
 
-import { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import InfiniteScroll from 'react-infinite-scroll-component';
-import axios from 'axios';
 import { apiData, apiImg } from '@/data/url';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 export default function Card({ params }) {
-    const [news, setNews] = useState("");
-    const [hasMore, setHasMore] = useState(true);
-    const router = useRouter()
 
-
-    const fetchNews = async () => {
-        axios({
-            url: `${apiData}/user/show/category/${params.category}`,
-            method: 'get',
-        }).then((res) => {
-            setNews(res.data.data)
-        })
-    }
-
+    const [news, setNews] = useState('')
+    const [limit, setLimit] = useState(10)
+    const [hasMore, setHasMore] = useState(true)
 
     useEffect(() => {
-        fetchNews();
-    }, []);
+        axios({
+            url: `${apiData}/user/show/news/limited/category/${params.category}?limit=${limit}`,
+            method: 'get'
+        }).then((res) => {
+            setNews(res.data)
+            console.log(res.data.news.length)
+        })
+    }, [limit])
 
-    const handleScroll = () => {
-        if (!hasMore) return;
-        fetchNews();
-    };
+    function NextData() {
+        setLimit(prev => prev + 10)
+    }
+
+    useEffect(() => {
+        if(news){
+            if (limit > news.news.length) {
+                setHasMore(false);
+            } else {
+                setHasMore(true);
+            }
+        }
+    }, [limit, news]);
 
     function getNews() {
         if (!news) {
             return (
                 <div className="grid grid-cols-1  gap-5 py-2 sm:grid-cols-2 md:grid-cols-3 w-full">
-                    <div className=' rounded-md bg-gray-200 h-[200px] animate-pulse'></div>
-                    <div className=' rounded-md bg-gray-200 h-[200px]  animate-pulse'></div>
-                    <div className=' rounded-md bg-gray-200 h-[200px]  animate-pulse'></div>
-                    <div className=' rounded-md bg-gray-200 h-[200px]  animate-pulse'></div>
-                    <div className=' rounded-md bg-gray-200 h-[200px]  animate-pulse'></div>
-                    <div className=' rounded-md bg-gray-200 h-[200px]  animate-pulse'></div>
+                    {
+                        [1, 2, 3, 4, 5, 6, 7, 8, 9].map((el, i) => {
+                            return (
+                                <div key={i} className=' rounded-md bg-gray-200 h-[200px] animate-pulse'></div>
+                            )
+                        })
+                    }
+
                 </div>
             )
         }
@@ -55,17 +62,13 @@ export default function Card({ params }) {
             )
         }
         if (news) {
-            const filter = news.news?.filter((el)=>{
-                return el.status == "published"
-            })
-            const reverse = filter.reverse()
+            const reverse = news.news
+
             return (
                 <InfiniteScroll
-                    dataLength={filter.length}
-                    next={handleScroll}
+                    dataLength={news.news.length}
+                    next={NextData}
                     hasMore={hasMore}
-                    loader={''}
-                    endMessage={''}
                 >
                     <div className="grid grid-cols-1  gap-5 py-2 sm:grid-cols-2 md:grid-cols-3">
                         {reverse?.map((item, index) => (
@@ -75,8 +78,8 @@ export default function Card({ params }) {
                                 whileInView={{ opacity: 1, translateY: "0px" }}
                                 transition={{ duration: 1.5 }}
                             >
-                                <div onClick={()=>{ router.push(`/category/${news.id}/${item.id}?news=${item.title.replace(/\s+/g, '-')}`) }} className='hover:opacity-80 transition-all cursor-pointer bg-gray-50 rounded-md overflow-hidden flex flex-col gap-2 shadow-md'>
-                                    <Image src={`${apiImg}/${item.img}`} alt={'...'} width={400} height={400} className='w-full h-[150px]'/>
+                                <Link href={`/category/${news.category.id}/${item.news_id}?news=${item.title.replace(/\s+/g, '-')}`} className='hover:opacity-80 transition-all cursor-pointer bg-gray-50 rounded-md overflow-hidden flex flex-col gap-2 shadow-md'>
+                                    <Image src={`${apiImg}/${item.img}`} alt={'...'} width={400} height={400} className='w-full h-[150px]' />
                                     <div className="flex flex-col gap-2 p-3">
                                         <p className="text-gray-500 text-xs ">{item.formatted_date}</p>
                                         <h2 className=' max-h-[80px] overflow-hidden'>{item.title}</h2>
@@ -85,7 +88,7 @@ export default function Card({ params }) {
                                             <p>by : {item.writer}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </motion.div>
                         ))}
                     </div>
@@ -94,9 +97,13 @@ export default function Card({ params }) {
         }
     }
 
+
     return (
         <div>
             {getNews()}
+            <div>
+                
+            </div>
         </div>
     );
 }

@@ -1,40 +1,33 @@
 'use client'
 import Image from "next/image";
 import NewsPage from "./shareNews";
-import Ads from "/public/image/250250.WebP";
-import Ads2 from "/public/image/ads.WebP";
 import Link from "next/link";
 import GNews from '/public/icon/icons8-google-news-94.png'
 import Form from "./form";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { apiData, apiImg } from "@/data/url";
+import { useEffect, useState, useRef } from "react";
+import { apiImg } from "@/data/url";
 import AdsFooter from "@/components/ads/footer";
+import AdSense from 'react-adsense';
+import News1 from "@/components/ads/news1";
+import News2 from "@/components/ads/news2";
+import News3 from "@/components/ads/news3";
 
-export default function News({ params }) {
 
-    const [data, setData] = useState()
+
+export default function News({ getData }) {
+
+    const data = getData.data
     const [HiddenVideo, setHiddenVideo] = useState('hidden')
 
-
     useEffect(() => {
-        axios({
-            url: `${apiData}/user/show/news/${params.id}`,
-            method: 'get',
-        }).then((res) => {
-            const data = res.data.data
-            setData(data)
-        })
-    }, [])
-
-
-    useEffect(() => {
-        try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (error) {
-            console.log(error.message)
+        if (window.adsbygoogle) {
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.log(err.message);
+            }
         }
-    }, [])
+    }, []);
 
 
     function getNews() {
@@ -73,7 +66,41 @@ export default function News({ params }) {
             const filter = data.comments?.filter((el) => {
                 return el.status == "published"
             })
-            console.log(data)
+            function Artical() {
+                const art = <div dangerouslySetInnerHTML={{ __html: data.part1 }} />
+                const arr = art.props.dangerouslySetInnerHTML.__html.split('<br>')
+                const arr2 = arr?.slice(5)
+                return (
+                    <>
+                        {arr[0] ? <div dangerouslySetInnerHTML={{ __html: arr[0] }} /> : console.log('arr[0] not found')}
+                        <br />
+                        {arr[1] ? <div dangerouslySetInnerHTML={{ __html: arr[1] }} /> : console.log('arr[1] not found')}
+                        <br />
+                        {arr[2] ? <div dangerouslySetInnerHTML={{ __html: arr[2] }} /> : console.log('arr[2] not found')}
+                        <br />
+                        <div className="flex justify-center my-4">
+                            <News2/>
+                        </div>
+                        <br />
+                        {arr[3] ? <div dangerouslySetInnerHTML={{ __html: arr[3] }} /> : console.log('arr[3] not found')}
+                        <br />
+                        {arr[4] ? <div dangerouslySetInnerHTML={{ __html: arr[4] }} /> : console.log('arr[4] not found')}
+                        <div className="flex justify-center my-4">
+                            <News3/>
+                        </div>
+                        <br />
+                        {
+                            arr2?.map((el, i) => {
+                                return (
+                                    <>
+                                        <div key={i} dangerouslySetInnerHTML={{ __html: el }} /><br />
+                                    </>
+                                )
+                            })
+                        }
+                    </>
+                )
+            }
             if (data.status = 'published') {
                 return (
                     <div className=" w-full my-10 px-6 flex flex-col gap-6">
@@ -95,31 +122,15 @@ export default function News({ params }) {
                         <div>
                             <Image src={`${apiImg}/${data.img}`} width={600} height={600} alt="..." className="w-[600px]" />
                         </div>
-
-                        <div className="flex justify-center ">
-                            <div className="max-sm:hidden bg-gray-100 h-[300px] w-[300px]">
-                            <ins className="adsbygoogle "
-                                style={{ display: "block" }}
-                                data-ad-client="ca-pub-8948820292282679"
-                                data-ad-slot="5236804482"
-                                data-ad-format="rspv"
-                                data-full-width-responsive="true">
-                            </ins>
-                            </div>
-                            <div className="sm:hidden bg-gray-100 w-full h-[300px]">
-                                <amp-ad width="100vw" height="300"
-                                    type="adsense"
-                                    data-ad-client="ca-pub-8948820292282679"
-                                    data-ad-slot="5236804482"
-                                    data-auto-format="rspv"
-                                    data-full-width="">
-                                    <div overflow=""></div>
-                                </amp-ad>
-                            </div>
+                        <div className="flex justify-center my-4">
+                            <News1 />
                         </div>
-
                         <div className="flex flex-col gap-6 font-bold  text-gray-600">
-                            <div className="w-[90%] max-sm:w-full whitespace-pre-wrap font-bold text-lg font-sans leading-relaxed" dangerouslySetInnerHTML={{ __html: data.part1 }}></div>
+
+                            <div className="artical w-[90%] max-sm:w-full whitespace-pre-wrap font-bold text-lg font-sans leading-relaxed">
+                                {Artical()}
+                            </div>
+
                             {
                                 data.videoLabel
                                     ? <div>
@@ -138,27 +149,6 @@ export default function News({ params }) {
                             }
                         </div>
 
-                        <div className="flex justify-center">
-                            <div className="max-sm:hidden w-[300px] h-[300px] bg-gray-100">
-                            <ins className="adsbygoogle "
-                                style={{display:"block"}}
-                                data-ad-client="ca-pub-8948820292282679"
-                                data-ad-slot="8916664233"
-                                data-ad-format="rspv"
-                                data-full-width-responsive="true">
-                            </ins>
-                            </div>
-                            <div className="sm:hidden w-full h-[300px] bg-gray-100">
-                                <amp-ad width="100vw" height="300"
-                                    type="adsense"
-                                    data-ad-client="ca-pub-8948820292282679"
-                                    data-ad-slot="8916664233"
-                                    data-auto-format="rspv"
-                                    data-full-width="">
-                                    <div overflow=""></div>
-                                </amp-ad>
-                            </div>
-                        </div>
 
                         <div className="flex gap-4 flex-wrap">
                             {
@@ -211,7 +201,7 @@ export default function News({ params }) {
                                 </h3>
                                 <p className="text-xs text-red-700">سيتم مراجعه التعليق قبل النشر</p>
                             </div>
-                            <Form params={params} />
+                            <Form params={data} />
                             <div className=" w-full flex flex-col gap-4 my-4">
                                 {
                                     filter.length > 0

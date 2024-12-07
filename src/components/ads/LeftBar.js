@@ -5,6 +5,7 @@ import axios from 'axios'
 import { apiData, apiImg } from "@/data/url"
 import Link from 'next/link'
 import Image from "next/image";
+import AdSense from 'react-adsense';
 
 export default function AdsLeftBar() {
 
@@ -25,12 +26,15 @@ export default function AdsLeftBar() {
     }, [])
 
     useEffect(() => {
-        try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (error) {
-            console.log(error.message)
+        if (window.adsbygoogle) {
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.log(err.message);
+            }
         }
-    }, [])
+    }, []);
+    
 
     function GetADs() {
         if (!ads || ads.length == 0) {
@@ -40,8 +44,9 @@ export default function AdsLeftBar() {
                         style={{display:"block"}}
                         data-ad-client="ca-pub-8948820292282679"
                         data-ad-slot="9445247465"
-                        data-ad-format="rspv"
-                        data-full-width-responsive="true"></ins>
+                        data-ad-format="auto"
+                        data-full-width-responsive="true">
+                    </ins>
                 </div>
             )
         }

@@ -38,16 +38,10 @@ export default function MiddleHome2() {
     function GetADs() {
         if (!ads || ads.length == 0) {
             return (
-                <div>
-                    <div className="flex justify-center w-full">
-                        <ins className="adsbygoogle w-[300px] h-[300px] bg-gray-100"
-                            style={{ display: "block" }}
-                            data-ad-client="ca-pub-8948820292282679"
-                            data-ad-slot="2037530738"
-                            data-ad-format="rspv"
-                            data-full-width-responsive="true">
-                        </ins>
-                    </div>
+                <div className="flex justify-center w-full">
+                    <Link href={'/ads'}>
+                        <Image src={adsImg} alt='...' width={300} height={300} className="w-[300px] h-[300px]" />
+                    </Link>
                 </div>
             )
         }

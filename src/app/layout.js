@@ -4,8 +4,10 @@ import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Head from "next/head";
-import Script from "next/script";
+
+import Analytics from "@/components/analytics/analytics";
+import GoogleAds from "@/components/ads/script";
+
 
 const NKA = Noto_Kufi_Arabic({ subsets: ["latin"] });
 
@@ -25,16 +27,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948820292282679"
-          crossorigin="anonymous"
-        />
-        <Script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"/>
+        <GoogleAds/>
       </head>
       <body className={`${NKA.className}`}>
         <ToastContainer className={'text-right font-bold'} />
         <NextTopLoader color="red" />
+        <Analytics/>
         <div className="max-w-[1360px] relative">
           {children}
         </div>

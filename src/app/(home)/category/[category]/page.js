@@ -1,12 +1,14 @@
-import Image from "next/image"
+
 import Card from "./card"
-import ads from '/public/image/ads.WebP'
 import SliderOneCatigory from "@/components/sliderOneCatigory/sliderOneCatigory"
-import Ads2 from "/public/image/ads.WebP";
 import MiddleCategory from "@/components/ads/MiddleCategory";
 import AdsFooter from "@/components/ads/footer";
 import AdsRightBar from "@/components/ads/RightBar";
 import AdsLeftBar from "@/components/ads/LeftBar";
+import { apiData } from "@/data/url";
+
+
+
 
 export default function page({ params }) {
 
@@ -17,7 +19,7 @@ export default function page({ params }) {
             </div>
 
             <div className="w-full max-md:px-6">
-                <SliderOneCatigory params={params.category}/>
+                <SliderOneCatigory params={params}/>
                 <div className="my-6">
                     <MiddleCategory/>
                 </div>

@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Select from "react-select";
 import { toast } from "react-toastify";
 
 export default function page({ params }) {
@@ -17,7 +18,8 @@ export default function page({ params }) {
     const [data, setData] = useState('')
     const router = useRouter()
     const [loader, setLoader] = useState(false)
-
+    const [admin ,setAdmin] = useState('')
+    const [hiddenWinChange, steHiddenWinChange] = useState(false)
 
     useEffect(() => {
         if (getAdmin) {
@@ -28,6 +30,7 @@ export default function page({ params }) {
 
     useEffect(() => {
         getData()
+        FungetAdmin()
     }, [adminData])
 
     function getData() {
@@ -39,8 +42,21 @@ export default function page({ params }) {
                     'Authorization': `Bearer ${adminData.access_token}`
                 }
             }).then((res) => {
-                console.log(res.data)
                 setData(res.data)
+            })
+        }
+    }
+
+    function FungetAdmin() {
+        if (adminData) {
+            axios({
+                url: `${apiData}/admin/showAll/adminProfile`,
+                method: 'get',
+                headers: {
+                    'Authorization': `Bearer ${adminData.access_token}`
+                }
+            }).then((res) => {
+                setAdmin(res.data.admins)
             })
         }
     }
@@ -61,7 +77,6 @@ export default function page({ params }) {
             )
         }
         if (data) {
-            console.log(data)
             return (
                 <div className="flex flex-col gap-8 bg-white p-4 relative overflow-hidden">
                     {
@@ -96,24 +111,24 @@ export default function page({ params }) {
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
                                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
                                     </svg>
-                                    {data.data.news_views_count}
+                                    {data.data?.news_views_count}
                                 </div>
                             </div>
                             <p>الوصف : {data.data.description}</p>
                             <div className=" rounded-md p-2 border">
-                                <p>وصف الفيديو : { data.data?.videoLabel || 'لا يوجد فيديو'}</p>
-                                <p>رابط الفيديو : <Link href={data.data?.videoUrl || "#"} className='text-sm text-sky-600'>{ data.data?.videoUrl || 'لا يوجد رابط'}</Link></p>
+                                <p>وصف الفيديو : {data.data?.videoLabel || 'لا يوجد فيديو'}</p>
+                                <p>رابط الفيديو : <Link href={data.data?.videoUrl || "#"} className='text-sm text-sky-600'>{data.data?.videoUrl || 'لا يوجد رابط'}</Link></p>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div className="font-bold p-2 border border-r-8 border-r-red-700">صوره الخبر</div>
-                        <Image src={`${apiImg}/${data.data.img}`} alt="..." width={600} height={400} />
+                        <Image src={`${apiImg}/${data.data?.img}`} alt="..." width={600} height={400} />
                     </div>
                     <div className="flex flex-col gap-6 font-bold  text-gray-600">
                         <div>
                             <div className="font-bold p-2 border border-r-8 border-r-red-700">  المقال</div>
-                            <p className=" max-sm:w-full  p-6 border whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: data.data.part1 }}>
+                            <p className=" max-sm:w-full  p-6 border whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: data.data?.part1 }}>
                             </p>
                         </div>
 
@@ -151,7 +166,7 @@ export default function page({ params }) {
                         </div>
                     </div>
 
-                    <div className="flex gap-6 p-6 justify-center flex-wrap">
+                    <div className="flex gap-6 justify-center flex-wrap">
                         <button onClick={publish} className="px-8 flex gap-4 bg-gray-600 py-2 items-center border rounded-lg hover:bg-green-500 text-white">
                             <p>موافقه </p>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-emoji-smile" viewBox="0 0 16 16">
@@ -181,6 +196,7 @@ export default function page({ params }) {
                         </button>
 
                     </div>
+                    <button onClick={()=>{steHiddenWinChange(true)}} className="text-red-700 hover:bg-red-700 hover:text-gray-200 w-fit px-6 py-2 rounded-lg mx-auto">نقل الخبر لشخص اخر.</button>
                 </div>
             )
         }
@@ -195,7 +211,6 @@ export default function page({ params }) {
                 'Authorization': `Bearer ${adminData.access_token}`
             }
         }).then((res) => {
-            console.log(res)
             router.replace('/dashboard/newsReviwe/rejected')
             return toast.success('تم رفض الخبر')
         }).catch((err) => {
@@ -213,7 +228,6 @@ export default function page({ params }) {
                 'Authorization': `Bearer ${adminData.access_token}`
             }
         }).then((res) => {
-            console.log(res)
             router.replace('/dashboard/newsReviwe/published')
             return toast.success('تم الموافقه على الخبر')
         }).catch((err) => {
@@ -231,7 +245,6 @@ export default function page({ params }) {
                 'Authorization': `Bearer ${adminData.access_token}`
             }
         }).then((res) => {
-            console.log(res)
             router.replace('/dashboard/newsReviwe/')
             return toast.success('تم حذف الخبر')
         }).catch((err) => {
@@ -250,11 +263,55 @@ export default function page({ params }) {
         }
     }
 
+    function FunChangeAdmin() {
+        if (admin) {
+            let convertedCategories = admin.map(el => ({
+                id: el.author.id,
+                value: el.author.id,
+                label: el.author.name,
+            }));
+            if (hiddenWinChange) {
+                return (
+                    <div className=" fixed top-0 left-0 w-full h-full flex items-start justify-center z-40">
+                        <div className="w-full h-full bg-gray-200/80" onClick={() => { steHiddenWinChange(false) }}></div>
+                        <div className=" absolute p-6 my-20">
+                            <Select options={convertedCategories} onChange={(e) => { ChangeAdmin(e) }} placeholder="بحث..." className="max-sm:w-[320px] w-[500px] text-sm max-sm:text-xs" />
+                        </div>
+                    </div>
+                )
+            }
+        }
+    }
+
+    function ChangeAdmin(e){
+            setLoader(true)
+            axios({
+                url: `${apiData}/admin/updateAdminId/news/${params.id}`,
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${adminData.access_token}`
+                },
+                data:{
+                    admin_id : e.id
+                }
+            }).then((res) => {
+                setLoader(false)
+                location.reload()
+                return toast.success('تم تغير ملكيه الخبر')
+            }).catch((err)=>{
+                setLoader(false)
+                console.log(err)
+                return toast.error('حدث خطا ما')
+            })
+    }
+
+
+
     return (
         <div>
-            <div className="font-bold p-2 border border-r-8 border-r-red-700 bg-white my-4">خبر تحت المراجعه</div>
             {FunsetData()}
             {FunLoader()}
+            {FunChangeAdmin()}
         </div>
     )
 }

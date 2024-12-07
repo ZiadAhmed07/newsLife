@@ -1,50 +1,15 @@
 'use client'
 
-import Card from "./card";
-import ads from '/public/image/300300.WebP'
 import Image from "next/image";
-import Loader from "../loader/loader";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { apiData } from "@/data/url";
 import Link from 'next/link'
 import { apiImg } from '../../data/url'
-import Ads2 from "/public/image/ads.WebP";
-import Footer from "../footer/footer";
 import AdsFooter from "../ads/footer";
 import MiddleHome1 from "../ads/MiddleHome1";
 import MiddleHome2 from "../ads/MiddleHome2";
 
-export default function IndexSidbarCard() {
+export default function IndexSidbarCard({category}) {
 
-    const [data, setData] = useState(false)
-    const [mostNews, setMostNews] = useState('')
-
-    useEffect(() => {
-        axios({
-            url: `${apiData}/user/showAll/category`,
-            method: 'get',
-        }).then((res) => {
-            const data = res.data.data
-            const filter = data?.filter((el) => {
-                return el.name == "رأى" || el.name == "تحيات"
-            })
-            setData(filter)
-        })
-    }, [])
-
-    useEffect(() => {
-        axios({
-            url: `${apiData}/user/showAll/mostReadNews`,
-            method: 'get',
-        }).then((res) => {
-            const data = res.data
-            const filter = data.filter((e) => {
-                return e.status == 'published'
-            })
-            setMostNews(filter)
-        })
-    }, [])
+    const data = category.data 
 
     function getCard() {
         if (!data) {
@@ -64,34 +29,30 @@ export default function IndexSidbarCard() {
                 </div>
             )
         }
-        if (data && mostNews) {
-            console.log(data)
-            const filter1 = data[0]?.news.filter((e)=>{
-                return e.status == "published"
-            })
-            const filter2 = data[1]?.news.filter((e)=>{
-                return e.status == "published"
-            })
-            const rev1 =  filter1 ? [...filter1].reverse().splice(0,6) : console.log('123')
-            const rev2 =  filter2 ? [...filter2].reverse().splice(0,6) : console.log('123')
+        if (data ) {
+            const rev1 = data[0]
+            const rev2 = data[1]
+            const rev3 = data[2]
             return (
                 <div className="flex flex-col sticky top-0">
-                    <div className='flex items-center justify-center my-6'>
-                        <MiddleHome1 />
+                    <div className="flex justify-center">
+                    <MiddleHome1 />
                     </div>
+
+                    
                     {
-                        data[0].bestNews.length > 0 ?
+                        data[0].news.length > 0 ?
                             <div className="flex flex-col gap-6 mt-10">
                                 <div className="border p-2 border-r-8 border-r-black flex justify-between items-center">
-                                    <h2 className="font-bold text-lg">{data[0]?.name}</h2>
-                                    <Link href={`/category/${data[0]?.id}`} className="text-red-700 hover:text-red-600 font-bold text-sm">المزيد</Link>
+                                    <h2 className="font-bold text-lg">{data[0].category_name}</h2>
+                                    <Link href={`/category/${data[0]?.category_id}`} className="text-red-700 hover:text-red-600 font-bold text-sm">المزيد</Link>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                     {
-                                        rev1.map((e, index) => {
+                                        rev1.news.map((e, index) => {
                                             return (
-                                                <Link href={`/category/${data[0]?.id}/${e.id}?news=${e.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
-                                                    <Image src={`${apiImg}/${e.img}`} width={200} height={200} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
+                                                <Link href={`/category/${data[0]?.category_id}/${e.news_id}?news=${e.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
+                                                    <Image  src={`${apiImg}/${e.img}`} width={200} height={150} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
                                                     <div className="flex flex-col gap-2">
                                                         <h2 className="text-xs font-bold">{e.title}</h2>
                                                         <p className="text-[10px] text-gray-500">{e.formatted_date}</p>
@@ -103,19 +64,49 @@ export default function IndexSidbarCard() {
                                 </div>
                             </div> : <div></div>
                     }
+                    <div className='flex items-center justify-center my-6'>
+                       <MiddleHome2 />
+                    </div>
                     {
-                        data[1]?.bestNews.length > 0
+                        data[1]?.news.length > 0
                             ? <div className="flex flex-col gap-6 mt-10">
                                 <div className="border p-2 border-r-8 border-r-black flex justify-between items-center">
-                                    <h2 className="font-bold text-lg">{data[1]?.name}</h2>
-                                    <Link href={`/category/${data[1]?.id}`} className="text-red-700 hover:text-red-600 font-bold text-sm">المزيد</Link>
+                                    <h2 className="font-bold text-lg">{data[1]?.category_name}</h2>
+                                    <Link href={`/category/${data[1]?.category_id}`} className="text-red-700 hover:text-red-600 font-bold text-sm">المزيد</Link>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                     {
-                                        rev2.map((e, index) => {
+                                        rev2.news.map((e, index) => {
                                             return (
-                                                <Link href={`/category/${data[1]?.id}/${e.id}?news=${e.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
-                                                    <Image src={`${apiImg}/${e.img}`} width={200} height={200} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
+                                                <Link href={`/category/${data[1]?.category_id}/${e.news_id}?news=${e.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
+                                                    <Image  src={`${apiImg}/${e.img}`} width={200} height={150} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
+                                                    <div className="flex flex-col gap-2">
+                                                        <h2 className="text-xs font-bold">{e.title}</h2>
+                                                        <p className="text-[10px] text-gray-500">{e.formatted_date}</p>
+                                                    </div>
+                                                </Link>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div> : <div></div>
+                    }
+                    <div className='flex items-center justify-center my-6'>
+                        
+                    </div>
+                    {
+                        data[2]?.news.length > 0
+                            ? <div className="flex flex-col gap-6 mt-10">
+                                <div className="border p-2 border-r-8 border-r-black flex justify-between items-center">
+                                    <h2 className="font-bold text-lg">{data[2]?.category_name}</h2>
+                                    <Link href={`/category/${data[2]?.category_id}`} className="text-red-700 hover:text-red-600 font-bold text-sm">المزيد</Link>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                                    {
+                                        rev3.news.map((e, index) => {
+                                            return (
+                                                <Link href={`/category/${data[2]?.category_id}/${e.news_id}?news=${e.title.replace(/\s+/g, '-')}`} key={index} className="flex gap-4 sm:flex-col">
+                                                    <Image  src={`${apiImg}/${e.img}`} width={200} height={150} alt="..." className="hover:opacity-80 max-h-[150px] w-[200px] sm:w-full" />
                                                     <div className="flex flex-col gap-2">
                                                         <h2 className="text-xs font-bold">{e.title}</h2>
                                                         <p className="text-[10px] text-gray-500">{e.formatted_date}</p>
@@ -129,10 +120,8 @@ export default function IndexSidbarCard() {
                     }
 
 
-                    <div className='flex items-center justify-center my-6'>
-                        <MiddleHome2 />
-                    </div>
 
+                    {/*
                     <div className="flex flex-col gap-6 mt-10">
                         <div className="border p-2 border-r-8 border-r-black flex justify-between items-center">
                             <h2 className="font-bold text-lg">الاكثر قراءة</h2>
@@ -153,6 +142,7 @@ export default function IndexSidbarCard() {
                             }
                         </div>
                     </div>
+                    */}
 
                     <div className='flex items-center justify-center'>
                         <AdsFooter />

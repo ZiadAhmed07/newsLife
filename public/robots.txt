@@ -1,4 +1,29 @@
+# HTTPS  www.alwatanynews.com
+
+Sitemap: https://www.alwatanynews.com/sitemap.xml
+
 User-agent: *
-Disallow: /dashboard/*
 Allow: /
-Sitemap: http://alwatanynews.com/sitemap.xml
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: bingbot-mobile
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: APIs-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+

@@ -97,3 +97,15 @@ body{
   100%{ transform: translateY(0px); }
 }
 
+
+/*  quill   */
+
+.ql-size-small { font-size: 12px; }
+.ql-size-medium { font-size: 16px; }
+.ql-size-large { font-size: 24px; }
+.ql-size-huge { font-size: 32px; }
+
+.artical a{
+  color: blue;
+  text-decoration: underline;
+}
